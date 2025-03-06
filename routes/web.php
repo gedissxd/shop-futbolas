@@ -7,6 +7,18 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/products', function () {
+    return view('products');
+})->name('products');
+
+Route::get('/cart', function () {
+    return view('cart');
+})->name('cart');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
