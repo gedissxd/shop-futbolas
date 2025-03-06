@@ -27,6 +27,10 @@
                 <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits" target="_blank">
                 {{ __('Documentation') }}
                 </flux:navlist.item>
+                
+                <flux:navlist.item icon="home" href="{{ route('home') }}" target="_blank">
+                {{ __('Home') }}
+                </flux:navlist.item>
             </flux:navlist>
 
             <!-- Desktop User Menu -->
