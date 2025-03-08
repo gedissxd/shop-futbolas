@@ -9,10 +9,10 @@
         @vite('resources/css/app.css')
         @fluxAppearance
     </head>
-    <body class="bg-gray-600 min-h-screen flex flex-col overflow-y-scroll">
-        <flux:navbar class="flex justify-between items-center bg-blue-300 h-15">
+    <body class="bg-zinc-900 min-h-screen flex flex-col overflow-y-scroll">
+        <flux:navbar class="flex justify-between items-center {{ $hasVideo ?? false ? 'bg-transparent' : 'bg-blue-900' }} h-18 absolute top-0 left-0 right-0 z-10">
             <div class="ml-4">
-                <img src="{{ asset('svg/logo no background fill.svg') }}" alt="logo" class="size-20">
+                <img src="{{ asset('svg/logo no background fill.svg') }}" alt="logo" class="size-25">
             </div>
             <div class="flex items-center justify-center flex-grow gap-2">
                 <flux:navbar.item href="{{ route('home') }}" icon="home" class="duration-300 hover:bg-blue-400!" >Home</flux:navbar.item>
@@ -39,9 +39,18 @@
             {{ $slot }}
         </main>
         
-        <footer class="bg-blue-300 h-15 w-full">
-            <div class="flex items-center justify-center h-full">
-                <p class="text-gray-200 text-sm"></p>
+        <footer class="bg-blue-900  w-full">
+            
+            <div class="flex justify-between">
+                <div class="flex items-center justify-center">
+                    <img src="{{ asset('svg/logo no background fill.svg') }}" alt="logo" class="size-25">
+                </div>
+                <div class="flex items-center justify-center ">
+                    <p class="text-gray-200 text-sm">© 2025 All rights reserved</p>
+                </div>
+                <div class="flex items-center justify-center">
+                    <p class="text-gray-200 text-sm">Contact</p>
+                </div>
             </div>
         </footer>
         
