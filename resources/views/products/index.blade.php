@@ -11,7 +11,7 @@
         <a href="{{ route('products.show', $product->id) }}" >
          <div class="bg-white  w-full rounded-lg">
             <div class="w-full h-48 overflow-hidden h-[360px]">
-                <img src="https://picsum.photos/200/300" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
+                <img src="{{ $product->image }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
             </div>
             
             <div class="p-4  flex flex-col">

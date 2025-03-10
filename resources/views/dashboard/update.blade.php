@@ -3,11 +3,27 @@
     <form action="{{ route('dashboard.update', $product->id) }}" method="POST">
         @csrf
         @method('PATCH')
-        <flux:input  type="text" required  value="{{ $product->name }}" class="mb-4"/>
-        <flux:input  type="number" required value="{{ $product->price }}" class="mb-4"/>
-        <flux:input  type="text" required value="{{ $product->description }}" class="mb-4"/>
-        <flux:input  type="text" required value="{{ $product->image }}" class="mb-4"/>
-        <flux:button type="submit">Update</flux:button>
+        <flux:input name="name" type="text" required value="{{ old('name', $product->name) }}" label="Name" class="mb-4"/>
+        <flux:input name="price" type="number" step="any" required value="{{ old('price', $product->price) }}" label="Price" class="mb-4"/>
+        <flux:input name="description" type="text" required value="{{ old('description', $product->description) }}" label="Description" class="mb-4"/>
+        <flux:input name="image" type="text" required value="{{ old('image', $product->image) }}" label="Image URL" class="mb-4"/>
+        <flux:button type="submit" class="bg-green-800!">Update</flux:button>
         <flux:button href="{{ route('dashboard') }}">Cancel</flux:button>
     </form>
+
+    <h1>Preview</h1>
+   
+        <div class="bg-white  rounded-lg w-1/4">
+           <div class="w-full h-48 overflow-hidden h-[360px]">
+               <img src="{{ $product->image }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
+           </div>
+           
+           <div class="p-4  flex flex-col">
+               <h2 class="text-lg font-medium text-gray-800 mb-1">{{ $product->name }}</h2>
+               
+               <div class="mt-auto">
+                   <p class="text-lg font-bold text-gray-900">${{ $product->price }}</p>
+               </div>
+           </div>
+       </div>
 </x-layouts.app>

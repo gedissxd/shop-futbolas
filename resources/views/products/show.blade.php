@@ -1,6 +1,6 @@
 <x-layout>
     <div class="flex p-16 mt-16">
-        <img src="https://placehold.co/600x400" alt="{{ $product->name }}" class="w-1/2 mr-16 rounded-lg">
+        <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-1/2 mr-16 rounded-lg">
         <div class="w-1/2">
             <h1 class="text-2xl font-bold text-white">{{ $product->name }}</h1>
             <p class="text-white mt-5">{{ $product->description }}</p>

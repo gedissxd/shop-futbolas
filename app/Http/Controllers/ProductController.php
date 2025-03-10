@@ -21,9 +21,18 @@ class ProductController extends Controller
 
     public function update($id, Request $request) 
     {
-        $product = Product::find($id);
-        $product->update($request->all());
-        return redirect()->route('dashboard');
+        $product = Product::findOrFail($id);
+        
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'description' => 'required|string',
+            'image' => 'required|string',
+        ]);
+        
+        $product->update($validated);
+        
+        return redirect()->route('dashboard')->with('success', 'Product updated successfully');
     }
 
     public function destroy($id)
