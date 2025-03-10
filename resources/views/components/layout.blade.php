@@ -17,6 +17,7 @@
             <div class="flex items-center justify-center flex-grow gap-2">
                 <flux:navbar.item href="{{ route('home') }}" icon="home" class="duration-300 hover:bg-blue-400!" >Home</flux:navbar.item>
                 <flux:navbar.item href="{{ route('products') }}" icon="shopping-cart" class="duration-300 hover:bg-blue-400!" >Shop</flux:navbar.item>
+                <flux:navbar.item href="{{ route('cart') }}" icon="shopping-bag" class="duration-300 hover:bg-blue-400!" >Cart (0)</flux:navbar.item>
                 
                 
             </div>
@@ -24,7 +25,7 @@
                 @auth
                 <form method="POST" action="{{ route('logout') }}" class="m-0">
                     @csrf
-                    <button type="submit" class="duration-300 bg-blue-300 text-gray-200 hover:bg-blue-400 py-2 px-4 rounded-md font-semibold text-sm">Logout</button>
+                    <button type="submit" class="duration-300 text-gray-200 hover:bg-blue-400 py-2 px-4 rounded-md font-semibold text-sm">Logout</button>
                 </form>
                 <flux:navbar.item href="{{ route('dashboard') }}" class="duration-300 hover:bg-blue-400!">Dashboard</flux:navbar.item>
                 @endauth
@@ -45,12 +46,7 @@
                 <div class="flex items-center justify-center">
                     <img src="{{ asset('svg/logo no background fill.svg') }}" alt="logo" class="size-25">
                 </div>
-                <div class="flex items-center justify-center ">
-                    <p class="text-gray-200 text-sm">© 2025 All rights reserved</p>
-                </div>
-                <div class="flex items-center justify-center">
-                    <p class="text-gray-200 text-sm">Contact</p>
-                </div>
+          
             </div>
         </footer>
         

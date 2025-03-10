@@ -1,23 +1,25 @@
 <x-layout>
-    <div class="flex justify-center mx-auto mt-10">
-    <flux:fieldset>
-    <flux:legend>Shipping address</flux:legend>
-
-    <div class="space-y-6">
-        <flux:input label="Street address line 1" placeholder="123 Main St" class="max-w-sm" />
-        <flux:input label="Street address line 2" placeholder="Apartment, studio, or floor" class="max-w-sm" />
-
-        <div class="grid grid-cols-2 gap-x-4 gap-y-6">
-            <flux:input label="City" placeholder="San Francisco" />
-            <flux:input label="State / Province" placeholder="CA" />
-            <flux:input label="Postal / Zip code" placeholder="12345" />
-            <flux:select label="Country">
-                <option selected>United States</option>
-                <!-- ... -->
-            </flux:select>
-        </div>
+    <div class="mx-auto p-4 bg-white  text-black text-center w-1/2 mt-20 rounded-lg">
+        <h2 class="text-2xl font-bold mb-4">Shopping Cart</h2>
+        <table class="w-full">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Size</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Product 1</td>
+                <td>1</td>
+                <td>M</td>
+                <td>100€</td>
+                <td><button class="text-red-500"><flux:icon.trash/></button></td>
+              </tr>
+            </tbody>
+        </table>
     </div>
-</flux:fieldset>
-</div>
 </x-layout>
 
