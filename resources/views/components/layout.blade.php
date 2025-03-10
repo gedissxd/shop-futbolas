@@ -25,10 +25,14 @@
                 @auth
                 <form method="POST" action="{{ route('logout') }}" class="m-0">
                     @csrf
-                    <button type="submit" class="duration-300 text-gray-200 hover:bg-blue-400 py-2 px-4 rounded-md font-semibold text-sm">Logout</button>
+                    <button type="submit" class="duration-300  text-gray-200 hover:bg-blue-400 py-2 px-4 rounded-md font-semibold text-sm">Logout</button>
                 </form>
-                <flux:navbar.item href="{{ route('dashboard') }}" class="duration-300 hover:bg-blue-400!">Dashboard</flux:navbar.item>
                 @endauth
+                @if (Auth::user()->is_admin)
+                <flux:navbar.item href="{{ route('dashboard') }}" class="duration-300 hover:bg-blue-400!">Dashboard</flux:navbar.item>
+                @endif
+                
+                
                 @guest
                 <flux:navbar.item href="{{ route('login') }}" class="duration-300 hover:bg-blue-400!">Login</flux:navbar.item>
                 <flux:navbar.item href="{{ route('register') }}" class="duration-300 hover:bg-blue-400!">Register</flux:navbar.item>

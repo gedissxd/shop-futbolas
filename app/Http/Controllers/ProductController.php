@@ -18,4 +18,19 @@ class ProductController extends Controller
         $product = Product::find($id);
         return view('products.show', compact('product'));
     }
+
+    public function update($id, Request $request) 
+    {
+        $product = Product::find($id);
+        $product->update($request->all());
+        return redirect()->route('dashboard');
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+        $product->delete();
+        return redirect()->route('dashboard');
+    }
+
 }
