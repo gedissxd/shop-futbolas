@@ -29,6 +29,7 @@
                         @method('DELETE')
                         <flux:button type="submit" variant="danger" class="cursor-pointer">Delete</flux:button>
                     </form>
+                 
                 </div>
             </div>
          

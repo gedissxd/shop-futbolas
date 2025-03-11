@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit.prevent="save">
+    <form wire:submit="save">
         <flux:input wire:model="name" name="name" type="text" required label="Name" class="mb-4"/>
         <flux:input wire:model="price" name="price" type="number" step="any" required label="Price" class="mb-4"/>
         <flux:input wire:model="description" name="description" type="text" required label="Description" class="mb-4"/>

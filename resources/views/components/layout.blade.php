@@ -28,7 +28,7 @@
                     <button type="submit" class="duration-300  text-gray-200 hover:bg-blue-400 py-2 px-4 rounded-md font-semibold text-sm">Logout</button>
                 </form>
                 @endauth
-                @if (Auth::user()->is_admin)
+                @if (Auth::user()->is_admin ?? false)
                 <flux:navbar.item href="{{ route('dashboard') }}" class="duration-300 hover:bg-blue-400!">Dashboard</flux:navbar.item>
                 @endif
                 

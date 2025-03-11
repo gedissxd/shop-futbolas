@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
+use App\Http\Controllers\CartController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -13,7 +14,7 @@ Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('/cart', function () {
-    return view('cart');
+    return view('cart.index');
 })->name('cart');
 
 
@@ -28,7 +29,6 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 
-    // Dashboard home
     Route::get('/dashboard', function () {
         $products = Product::latest()->get();
         return view('dashboard.index', compact('products'));

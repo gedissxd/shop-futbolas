@@ -15,7 +15,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         return view('products.show', compact('product'));
     }
 
@@ -32,14 +32,14 @@ class ProductController extends Controller
         
         $product->update($validated);
         
-        return redirect()->route('dashboard')->with('success', 'Product updated successfully');
+        return redirect()->route('dashboard')->with('message', 'Product updated successfully');
     }
 
     public function destroy($id)
     {
         $product = Product::find($id);
         $product->delete();
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('message', 'Product deleted successfully');
     }
 
 }

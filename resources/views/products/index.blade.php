@@ -5,7 +5,6 @@
             <source src="{{ asset('video/kick.mp4') }}" type="video/mp4">
         </video>
     </div>
-   
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 justify-center mx-auto  mb-10 p-16"> 
         @foreach ($products as $product)
         <a href="{{ route('products.show', $product->id) }}" >
