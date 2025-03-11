@@ -14,5 +14,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Product::factory(40)->create();
+        $this->call([
+            // Other seeders...
+            TerminalsTableSeeder::class,
+        ]);
+      
     }
 }
