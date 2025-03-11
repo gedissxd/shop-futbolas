@@ -22,7 +22,7 @@
                         <td class="py-4 px-4 font-medium">{{ $cart->product->name }}</td>
                         <td class="py-4 px-4 text-center">
                             <div class="flex items-center justify-center space-x-2">
-                                <button class="p-1 cursor-pointer" wire:click="decrement({{ $cart->id }})">
+                                <button class="p-1 cursor-pointer @php if($cart->quantity == 1) { echo 'hidden'; } @endphp" wire:click="decrement({{ $cart->id }})">
                                     <flux:icon.minus class="w-4 h-4" />
                                 </button>
                                 <span class="mx-1 font-medium">{{ $cart->quantity }}</span>

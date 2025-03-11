@@ -19,6 +19,7 @@ class Cart extends Component
     {
         $cart = CartModel::find($id);
         if ($cart->quantity > 1) {
+            
             $cart->quantity--;
             $cart->save();
         }

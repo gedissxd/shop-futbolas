@@ -11,7 +11,7 @@
     </head>
     <body class="bg-zinc-900 min-h-screen flex flex-col overflow-y-scroll">
         <livewire:nav-bar />
-
+        
         <main class="flex-grow">
             {{ $slot }}
         </main>
