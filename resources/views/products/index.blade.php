@@ -1,13 +1,7 @@
 <x-layout>
- 
-    <div class="w-full relative hidden md:block">
-        <video class="w-full h-[915px] object-cover" autoplay muted loop>
-            <source src="{{ asset('video/kick.mp4') }}" type="video/mp4">
-        </video>
-    </div>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 justify-center mx-auto  mb-10 p-16"> 
         @foreach ($products as $product)
-        <a href="{{ route('products.show', $product->id) }}">
+        <a href="{{ route('products.show', $product->id) }}" wire:navigate>
          <div class="bg-white  w-full rounded-lg">
             <div class="w-full h-48 overflow-hidden h-[360px]">
                 <img src="{{ $product->image }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">

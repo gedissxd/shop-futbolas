@@ -22,11 +22,7 @@
                     {{ $message }}
                 </div>
             @enderror
-            <flux:radio.group wire:model="color" class="flex gap-4 mt-5">
-            <flux:radio value="red" label="Red"/>
-            <flux:radio value="blue" label="Blue" />
-            <flux:radio value="green" label="Green" />
-            </flux:radio.group>
+          
             
             <div class="mt-5">
                 <flux:select wire:model="size" placeholder="Choose size...">

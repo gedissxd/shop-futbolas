@@ -1,5 +1,5 @@
 <x-layout>
-    <flux:breadcrumbs class="mt-25 ml-8">
+    <flux:breadcrumbs class="mt-5 ml-8">
         <flux:breadcrumbs.item href="{{ route('home') }}" wire:navigate separator="slash">Home</flux:breadcrumbs.item>
         <flux:breadcrumbs.item href="{{ route('products') }}" wire:navigate separator="slash">Shop</flux:breadcrumbs.item>
         <flux:breadcrumbs.item separator="slash">{{ $product->name }}</flux:breadcrumbs.item>

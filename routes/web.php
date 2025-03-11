@@ -21,7 +21,7 @@ Route::get('/cart', function () {
 Route::view('dashboard', 'dashboard.index')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-
+    
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 

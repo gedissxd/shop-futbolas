@@ -9,14 +9,14 @@
         @vite('resources/css/app.css')
         @fluxAppearance
     </head>
-    <body class="bg-zinc-900 min-h-screen flex flex-col overflow-y-scroll">
+    <body class="bg-white dark:bg-zinc-900 min-h-screen flex flex-col">
         <livewire:nav-bar />
-        
+
         <main class="flex-grow">
             {{ $slot }}
         </main>
         
-        <footer class="bg-blue-900  w-full">
+        <footer class="bg-zinc-800 border-t border-zinc-700 w-full">
             
             <div class="flex justify-between">
                 <div class="flex items-center justify-center">

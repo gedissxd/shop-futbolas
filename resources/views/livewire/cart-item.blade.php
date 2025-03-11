@@ -1,4 +1,4 @@
-<div class="mx-auto p-6 text-black w-3/4 md:w-2/3 lg:w-1/2 mt-12 rounded-lg mt-30 mb-20 grid grid-cols-4 gap-6">
+<div class="mx-auto p-6 text-black w-3/4  mt-12 rounded-lg mt-25 mb-20 grid grid-cols-4 gap-6">
     @if(count($carts) > 0)
         <div class="col-span-3 bg-white p-4 rounded-lg">
             
@@ -10,7 +10,6 @@
                         <th class="py-3 px-4 text-center">Quantity</th>
                         <th class="py-3 px-4 text-center">Size</th>
                         <th class="py-3 px-4 text-right">Price</th>
-                        <th class="py-3 px-4 text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +24,9 @@
                                 <button class="p-1 cursor-pointer @php if($cart->quantity == 1) { echo 'hidden'; } @endphp" wire:click="decrement({{ $cart->id }})">
                                     <flux:icon.minus class="w-4 h-4" />
                                 </button>
+                                <button class="p-2 text-red-300 hover:text-red-900 @php if($cart->quantity > 1) { echo 'hidden'; } @endphp" wire:click="delete({{ $cart->id }})">
+                                    <flux:icon.trash class="w-5 h-5"/>
+                                </button>
                                 <span class="mx-1 font-medium">{{ $cart->quantity }}</span>
                                 <button class="p-1 cursor-pointer" wire:click="increment({{ $cart->id }})">
                                     <flux:icon.plus class="w-4 h-4" />
@@ -32,11 +34,9 @@
                             </div>
                         </td>
                         <td class="py-4 px-4 text-center">{{ $cart->size }}</td>
-                        <td class="py-4 px-4 text-right">${{ $cart->product->price }}</td>
+                        <td class="py-4 px-4 text-right">${{ $cart->product->price * $cart->quantity }}</td>
                         <td class="py-4 px-4 text-center">
-                            <button class="p-2 text-red-300 hover:text-red-900" wire:click="delete({{ $cart->id }})">
-                                <flux:icon.trash class="w-5 h-5"/>
-                            </button>
+                           
                         </td>
                     </tr>
                     @endforeach
@@ -49,8 +49,8 @@
                 <div class="mb-6 text-lg font-semibold">
                     <span class="block mb-4">Order Summary</span>
                     <div class="flex justify-between items-center">
-                        <span>Total: 300$</span>
-                        
+                        <span>Total: </span>
+                        <span>${{ $this->getCartTotal() }}</span>
                     </div>
                 </div>
                 
