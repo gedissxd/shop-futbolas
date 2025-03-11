@@ -12,24 +12,16 @@ class AddToCart extends Component
     public $product;
     public $size = '';
     public $quantity = 1;
-    public $debug = '';
+    public $message = null;
 
     public function mount($product)
     {
         $this->product = $product;
-        $this->debug = 'Component mounted via standard Livewire';
-    }
-
-    public function incrementQuantity()
-    {
-        $this->quantity++;
-        $this->debug = 'Quantity incremented to ' . $this->quantity;
     }
 
     public function addToCart()
     {
-        $this->debug = 'addToCart method called at ' . now();
-        
+    
         $this->validate([
             'size' => 'required',
         ], [
@@ -57,7 +49,7 @@ class AddToCart extends Component
         }
 
         $this->dispatch('cartUpdated');
-        session()->flash('message', 'Product added to cart!');
+        $this->message = 'Item added to cart';
     }
 
     public function render()

@@ -22,11 +22,11 @@
                         <td class="py-4 px-4 font-medium">{{ $cart->product->name }}</td>
                         <td class="py-4 px-4 text-center">
                             <div class="flex items-center justify-center space-x-2">
-                                <button class="p-1 cursor-pointer">
+                                <button class="p-1 cursor-pointer" wire:click="decrement({{ $cart->id }})">
                                     <flux:icon.minus class="w-4 h-4" />
                                 </button>
                                 <span class="mx-1 font-medium">{{ $cart->quantity }}</span>
-                                <button class="p-1 cursor-pointer">
+                                <button class="p-1 cursor-pointer" wire:click="increment({{ $cart->id }})">
                                     <flux:icon.plus class="w-4 h-4" />
                                 </button>
                             </div>
@@ -34,7 +34,7 @@
                         <td class="py-4 px-4 text-center">{{ $cart->size }}</td>
                         <td class="py-4 px-4 text-right">${{ $cart->product->price }}</td>
                         <td class="py-4 px-4 text-center">
-                            <button class="p-2 text-red-300 hover:text-red-900">
+                            <button class="p-2 text-red-300 hover:text-red-900" wire:click="delete({{ $cart->id }})">
                                 <flux:icon.trash class="w-5 h-5"/>
                             </button>
                         </td>

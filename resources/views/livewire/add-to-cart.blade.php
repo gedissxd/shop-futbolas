@@ -6,10 +6,14 @@
             <p class="text-white mt-5">{{ $product->description }}</p>
             <p class="text-white">{{ $product->price }}€</p>
             
-            @if (session()->has('message'))
-                <div class="p-4 mb-4 mt-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
-                    {{ session('message') }}
-                </div>
+            @if ($message)
+            <div x-data="{ show: true }" 
+                 x-init="setTimeout(() => { show = false; $wire.set('message', null); }, 1000)" 
+                 x-show="show"
+                 class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" 
+                 role="alert">
+                {{ $message }}
+            </div>
             @endif
 
             @error('size') 
