@@ -21,7 +21,7 @@ class NavBar extends Component
     {
         $this->updateCartCount();
     }
-
+   
     private function updateCartCount()
     {
         if (Auth::check()) {

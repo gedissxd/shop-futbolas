@@ -25,7 +25,7 @@
           
             
             <div class="mt-5">
-                <flux:select wire:model="size" placeholder="Choose size...">
+                <flux:select searchable wire:model="size" placeholder="Choose size...">
                     <flux:select.option value="S">S</flux:select.option>
                     <flux:select.option value="M">M</flux:select.option>
                     <flux:select.option value="L">L</flux:select.option>
@@ -35,7 +35,7 @@
 
             
             <div class="mt-5">
-               <flux:button wire:click="addToCart">Add to cart</flux:button>
+               <flux:button variant="primary" wire:click="addToCart">Add to cart</flux:button>
                
             </div>
         </div>
