@@ -24,7 +24,7 @@
                 <p class="text-lg font-bold">${{ $product->price }}</p>
                 </div>
                 <div class="flex ml-auto gap-2">
-                    <flux:button href="{{ route('dashboard.update', $product->id) }}">Edit</flux:button>
+                    <flux:button href="{{ route('dashboard.edit', $product->id) }}">Edit</flux:button>
                     <form action="{{ route('dashboard.destroy', $product->id) }}" method="POST">
                         @csrf
                         @method('DELETE')

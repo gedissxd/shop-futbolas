@@ -21,6 +21,12 @@
                 {{ __('Orders') }}
                 </flux:navlist.item>
             </flux:navlist>
+
+            <flux:navlist variant="outline">
+                <flux:navlist.item icon="user" href="{{ route('dashboard.users') }}" wire:navigate>
+                {{ __('Users') }}
+                </flux:navlist.item>
+            </flux:navlist>
             <flux:spacer />
             <flux:navlist variant="outline">
                 <flux:navlist.item icon="home" href="{{ route('home') }}" wire:navigate>

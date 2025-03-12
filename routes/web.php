@@ -8,6 +8,9 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Models\Cart;
+use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\DashboardUsersController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,38 +24,32 @@ Route::get('/cart', function () {
 })->name('cart');
 
 
-Route::view('dashboard', 'dashboard.index')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
     
 Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', 'settings/profile');
 
+    //settings
+    Route::redirect('settings', 'settings/profile');
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 
-    Route::get('/dashboard', function () {
-        $products = Product::latest()->get();
-        return view('dashboard.index', compact('products'));
-    })->name('dashboard');
 
-    Route::get('/dashboard/update/{id}', function ($id) {
-        $product = Product::find($id);
-        return view('dashboard.update', compact('product'));
-    })->name('dashboard.update');
 
-    Route::get('/dashboard/create', function () {
-        return view('dashboard.create');
-    })->name('dashboard.create');
 
+    //dashboard
     Route::get('/orders', [OrderController::class, 'index'])->name('dashboard.orders');
 
-    Route::patch('/dashboard/update/{id}', [ProductController::class, 'update'])->name('dashboard.update');
-    Route::delete('/dashboard/update/{id}', [ProductController::class, 'destroy'])->name('dashboard.destroy');
-});
-Route::middleware('auth')->group(function () {
+    Route::get('/dashboard/users', [DashboardUsersController::class, 'index'])->name('dashboard.users');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/create', [DashboardController::class, 'create'])->name('dashboard.create');
+    Route::post('/dashboard/create', [DashboardController::class, 'store'])->name('dashboard.store');
+    Route::get('/dashboard/edit/{id}', [DashboardController::class, 'edit'])->name('dashboard.edit');
     
+    Route::patch('/dashboard/update/{id}', [DashboardController::class, 'update'])->name('dashboard.update');
+    Route::delete('/dashboard/update/{id}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
+
+    //stripe
+
     Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 });
