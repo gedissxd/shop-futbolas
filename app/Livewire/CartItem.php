@@ -11,11 +11,10 @@ class CartItem extends Component
 {
     public $carts = [];
     public $terminals = [];
-
     public function mount()
     {
         $userId = auth()->id();
-        $this->carts = Cart::where('user_id', $userId)->with('product')->get();
+        $this->refreshCart();
         
         $this->terminals = Terminal::all();
     }
@@ -52,7 +51,7 @@ class CartItem extends Component
     }
     public function getTerminals()
     {
-        $terminals = Terminal::orderBy('city')->get();
+        $terminals = Terminal::orderBy('name')->get();
         return $terminals;
     }
 
@@ -64,6 +63,7 @@ class CartItem extends Component
         $this->refreshCart();
     }
 
+   
     public function render()
     {
         return view('livewire.cart-item');

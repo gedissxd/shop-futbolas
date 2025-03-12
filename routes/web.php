@@ -5,6 +5,7 @@ use Livewire\Volt\Volt;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -46,5 +47,9 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/dashboard/update/{id}', [ProductController::class, 'update'])->name('dashboard.update');
     Route::delete('/dashboard/update/{id}', [ProductController::class, 'destroy'])->name('dashboard.destroy');
 });
-
+Route::middleware('auth')->group(function () {
+    
+    Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+});
 require __DIR__.'/auth.php';
