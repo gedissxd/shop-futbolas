@@ -11,7 +11,7 @@
                 <h2 class="text-lg font-medium text-gray-800 mb-1">{{ $product->name }}</h2>
                 
                 <div class="mt-auto">
-                    <p class="text-lg font-bold text-gray-900">${{ $product->price }}</p>
+                    <p class="text-lg font-bold text-gray-900">{{ $product->price }}€</p>
                 </div>
             </div>
         </div>

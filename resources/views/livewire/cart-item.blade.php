@@ -34,7 +34,7 @@
                                 </div>
                             </td>
                             <td class="py-4 px-4 text-center">{{ $cart->size }}</td>
-                            <td class="py-4 px-4 text-right">${{ $cart->product->price * $cart->quantity }}</td>
+                            <td class="py-4 px-4 text-right">{{ $cart->product->price * $cart->quantity }}€</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -63,7 +63,7 @@
                         
                         <div class="flex justify-between items-center font-medium">
                             <span>Total: </span>
-                            <span>${{ $this->getCartTotal() }}</span>
+                            <span>{{ $this->getCartTotal() }}€</span>
                         </div>
                     </div>
                     
