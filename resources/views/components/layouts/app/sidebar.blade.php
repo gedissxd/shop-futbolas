@@ -10,19 +10,25 @@
         
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
-                    @if (auth()->user()->role === 'admin')
+                    @if (auth()->user()->is_admin == true)
                         <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                     @endif
                 </flux:navlist.group>
             </flux:navlist>
 
+            <flux:navlist variant="outline">
+                <flux:navlist.item icon="shopping-bag" href="{{ route('dashboard.orders') }}" wire:navigate>
+                {{ __('Orders') }}
+                </flux:navlist.item>
+            </flux:navlist>
             <flux:spacer />
-
             <flux:navlist variant="outline">
                 <flux:navlist.item icon="home" href="{{ route('home') }}" wire:navigate>
                 {{ __('Home') }}
                 </flux:navlist.item>
             </flux:navlist>
+            
+
 
             <!-- Desktop User Menu -->
             <flux:dropdown position="bottom" align="start">

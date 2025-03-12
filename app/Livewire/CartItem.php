@@ -11,6 +11,7 @@ class CartItem extends Component
 {
     public $carts = [];
     public $terminals = [];
+
     public function mount()
     {
         $userId = auth()->id();
@@ -26,22 +27,20 @@ class CartItem extends Component
 
     public function increment($id)
     {
-        $cart = Cart::find($id);
-        $cart->quantity++;
-        $cart->save();
-        $this->dispatch('cartUpdated');
+        $cart = Cart::find($id)?->increment('quantity');
         $this->refreshCart();
+        $this->dispatch('cartUpdated');
     }
     public function decrement($id)
     {
         $cart = Cart::find($id);
         if ($cart->quantity > 1) {
-            
-            $cart->quantity--;
-            $cart->save();
+            $cart->decrement('quantity');
         }
-        $this->dispatch('cartUpdated');
+        
         $this->refreshCart();
+        $this->dispatch('cartUpdated');
+      
     }
     public function getCartTotal()
     {

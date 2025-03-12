@@ -6,6 +6,8 @@ use App\Http\Controllers\ProductController;
 use App\Models\Product;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
+use App\Models\Cart;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/create', function () {
         return view('dashboard.create');
     })->name('dashboard.create');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('dashboard.orders');
 
     Route::patch('/dashboard/update/{id}', [ProductController::class, 'update'])->name('dashboard.update');
     Route::delete('/dashboard/update/{id}', [ProductController::class, 'destroy'])->name('dashboard.destroy');
