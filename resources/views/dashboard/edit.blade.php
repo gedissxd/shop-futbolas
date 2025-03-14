@@ -7,6 +7,7 @@
         <flux:input name="price" type="number" step="any" required value="{{ old('price', $product->price) }}" label="Price" class="mb-4"/>
         <flux:input name="description" type="text" required value="{{ old('description', $product->description) }}" label="Description" class="mb-4"/>
         <flux:input name="image" type="text" required value="{{ old('image', $product->image) }}" label="Image URL" class="mb-4"/>
+        <flux:input name="variant" type="text" required value="{{ old('variant', $product->variant) }}" label="Variants" class="mb-4"/>
         <flux:button type="submit" class="bg-green-800!">Update</flux:button>
         <flux:button href="{{ route('dashboard') }}">Cancel</flux:button>
     </form>
@@ -26,4 +27,6 @@
                </div>
            </div>
        </div>
+
+    <livewire:add-to-cart :product="$product" />
 </x-layouts.app>

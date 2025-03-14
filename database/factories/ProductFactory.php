@@ -21,6 +21,7 @@ class ProductFactory extends Factory
             'description' => $this->faker->sentence,
             'price' => $this->faker->randomFloat(2, 1, 100),
             'image' => "https://placehold.co/600x400",
+            'variant' => "XL/RED,M/BLUE",
         ];
     }
 }

@@ -26,10 +26,9 @@
             
             <div class="mt-5">
                 <flux:select searchable wire:model="size" placeholder="Choose size...">
-                    <flux:select.option value="S">S</flux:select.option>
-                    <flux:select.option value="M">M</flux:select.option>
-                    <flux:select.option value="L">L</flux:select.option>
-                    <flux:select.option value="XL">XL</flux:select.option>
+                    @foreach (explode(',', $product->variant) as $variant)
+                        <flux:select.option value="{{ $variant }}">{{ $variant }}</flux:select.option>
+                    @endforeach
                 </flux:select>
             </div>
 

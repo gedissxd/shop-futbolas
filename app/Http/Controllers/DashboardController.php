@@ -25,6 +25,7 @@ public function store(Request $request)
         'price' => 'required|numeric',
         'description' => 'required|string',
         'image' => 'required|string',
+        'variant' => 'required|string',
     ]);
 
     
@@ -49,6 +50,7 @@ public function store(Request $request)
             'price' => 'required|numeric',
             'description' => 'required|string',
             'image' => 'required|string',
+            'variant' => 'required|string',
         ]);
         
         $product->update($validated);
