@@ -12,9 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('stripe_id')->nullable()->index();
-            $table->string('pm_type')->nullable();
-            $table->string('pm_last_four', 4)->nullable();
+            if (!Schema::hasColumn('users', 'stripe_id')) {
+                $table->string('stripe_id')->nullable();
+            }
+            
+            if (!Schema::hasColumn('users', 'pm_type')) {
+                $table->string('pm_type')->nullable();
+            }
+            
+            if (!Schema::hasColumn('users', 'pm_last_four')) {
+                $table->string('pm_last_four')->nullable();
+            }
+            
             $table->timestamp('trial_ends_at')->nullable();
         });
     }
