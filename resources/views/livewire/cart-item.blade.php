@@ -34,37 +34,45 @@
                 <div class="mt-4 border-t border-zinc-700 pt-4">
                     <h3 class="text-right font-medium text-lg">Total: {{ $this->getCartTotal() }}€</h3>
                     <div class="mt-6 border-t border-zinc-700 pt-6">
-
-
-                        <h3 class="font-medium text-lg mb-4">Pickup Method</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <flux:radio.group>
-                                    <flux:radio value="shop" label="Shop" checked />
-                                    <flux:radio value="terminal" label="Terminal" />
-                                </flux:radio.group>
-                            </div>
-                            
-                            
-                            <div class="flex flex-col space-y-4">
-                                <flux:select placeholder="Choose terminal..." class="w-full">
-                                    @foreach ($terminals as $terminal)
-                                        <flux:select.option value="{{ $terminal->id }}">{{ $terminal->city }}: {{ $terminal->adress }} {{ $terminal->name }}</flux:select.option> 
-                                    @endforeach
-                                </flux:select>
-                                <flux:input placeholder="+370" label="Phone number" class="w-full" />
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex justify-end mt-6">
                         <form action="{{ route('checkout') }}" method="POST">
                             @csrf
+                            @error('pickupMethod')
+                                <div class="text-red-500">{{ $message }}</div>
+                            @enderror
+                            <h3 class="font-medium text-lg mb-4">Pickup Method</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <input type="hidden" name="pickupMethod" value="{{ $pickupMethod }}">
+                                    
+                                    <flux:radio.group wire:model="pickupMethod">
+                                        <flux:radio value="shop" label="Shop" name="shop"/>
+                                        <flux:radio value="terminal" label="Terminal" name="terminal"/>
+                                    </flux:radio.group>
+                                    <flux:select placeholder="Choose terminal..." class="w-full" name="terminal_id" x-show="$wire.pickupMethod === 'terminal'" class="mt-4">
+                                        @foreach ($terminals as $terminal)
+                                            <flux:select.option value="{{ $terminal->id }}">{{ $terminal->city }}: {{ $terminal->adress }} {{ $terminal->name }}</flux:select.option> 
+                                        @endforeach
+                                    </flux:select>
+                                </div>
+                                
+                                <div class="flex flex-col space-y-4">
+                                    
+                                </div>
+                                <flux:input placeholder="+370" label="Phone number" required class="w-full" name="phone" value="{{ old('phone') }}" />
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end mt-6">
                             <flux:button type="submit" variant="primary" class="px-6 py-2">Checkout</flux:button>
                         </form>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="p-4 bg-gray-800 mb-4 rounded">
+            <p>Debug - Current values:</p>
+            <p>Pickup Method: {{ $pickupMethod }}</p>
+            <p>Is Terminal Selected? {{ $pickupMethod === 'terminal' ? 'Yes' : 'No' }}</p>
         </div>
     @else
         <div class="text-center py-8 bg-zinc-800 rounded-lg border border-yellow-200">

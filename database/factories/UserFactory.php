@@ -25,9 +25,10 @@ class UserFactory extends Factory
     {
         return [
             'name' => "gedis",
-            'email' => "gediss.lolas78@gmail.com",
+            'email' => "2@gmail.com",
             'email_verified_at' => now(),
             'password' => 1,
+            'is_admin' => 1,
             'remember_token' => Str::random(10),
         ];
     }

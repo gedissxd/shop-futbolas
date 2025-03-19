@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->string('terminal');
+            $table->string('terminal')->nullable();
+            $table->string('pickup_method')->nullable();
             $table->string('payment');
             $table->string('status');
-            $table->string('items');
             $table->timestamps();
         });
     }

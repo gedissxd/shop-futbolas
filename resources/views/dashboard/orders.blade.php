@@ -1,30 +1,31 @@
 <x-layouts.app title="Orders">
 
-    <div class="text-xl font-bold mb-4">In cart</div>
-    @php
-        // Group cart items by user_id
-        $cartsByUser = $cartItems->groupBy('user_id');
-    @endphp
+    <div class="text-xl font-bold mb-4">Completed orders</div>
 
-    @foreach ($cartsByUser as $userId => $userCarts)
-        <div class="mb-8  pb-4 border p-4 rounded-lg border-yellow-300">
-            <h2 class="text-xl font-bold mb-4">Cart: {{ $userCarts->first()->user->email }}</h2>
+    @foreach ($orders as $order)
+        <div class="mb-8 pb-4 border p-4 rounded-lg border-yellow-300">
+            <h2 class="text-xl font-bold mb-4">Order: #{{ $order->id }} - {{ $order->created_at->format('Y-m-d H:i') }}</h2>
+            <div class="mb-2">Customer: {{ $order->name }} ({{ $order->email }})</div>
+            <div class="mb-2">Phone: {{ $order->phone }}</div>
+            <div class="mb-2">Pickup: {{ $order->terminal }}</div>
+            <div class="mb-2">Status: <span class="text-green-500">{{ $order->status }}</span></div>
             
-            @foreach ($userCarts as $cart)
-                <div class="pt-4 pb-4 mb-4 last:mb-0 last:pb-0">
-                    <div class="flex items-center gap-3">
-                        <img src="{{ $cart->product->image }}" alt="{{ $cart->product->name }}" class="size-16 sm:size-20 md:size-24 object-cover rounded">
-                        <div class="flex-1">
-                            <h3 class="font-medium">{{ $cart->product->name }}</h3>
-                            <div class="text-sm text-zinc-400">Size: {{ $cart->size }}</div>
-                            <div class="text-sm text-zinc-400">Price: {{ $cart->product->price * $cart->quantity }}€</div>
-                            <div class="text-sm text-zinc-400">Quantity: {{ $cart->quantity }}</div>
+            <div class="mt-4 pt-4 border-t border-zinc-700">
+                <h3 class="font-medium mb-3">Items:</h3>
+                
+                @foreach ($order->items as $item)
+                    <div class="border-b border-zinc-600 pb-3 mb-3 last:border-0 last:mb-0 last:pb-0">
+                        <div class="flex justify-between">
+                            <div>
+                                <span class="font-medium">{{ $item['product_name'] }}</span>
+                                <div class="text-sm text-zinc-400">Size: {{ $item['size'] }}</div>
+                                <div class="text-sm text-zinc-400">Quantity: {{ $item['quantity'] }}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
     @endforeach
-    <div class="text-xl font-bold mb-4">Completed orders</div>
-</x-layouts.app>
+</x-layouts.app>    
 

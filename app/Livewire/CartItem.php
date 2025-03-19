@@ -11,6 +11,8 @@ class CartItem extends Component
 {
     public $carts = [];
     public $terminals = [];
+    public $pickupMethod = '';
+
 
     public function mount()
     {
@@ -50,7 +52,7 @@ class CartItem extends Component
     }
     public function getTerminals()
     {
-        $terminals = Terminal::orderBy('name')->get();
+        $terminals = Terminal::orderBy('city', 'asc')->get();
         return $terminals;
     }
 
