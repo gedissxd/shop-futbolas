@@ -24,14 +24,12 @@
             @enderror
           
             
-            <div class="mt-5">
-                <flux:select searchable wire:model="size" placeholder="Choose size...">
-                    @foreach (explode(',', $product->variant) as $variant)
-                        <flux:select.option value="{{ $variant }}">{{ $variant }}</flux:select.option>
-                    @endforeach
-                </flux:select>
-            </div>
-
+           
+            <flux:radio.group wire:model="size" variant="segmented" class="mt-5">
+                @foreach (explode(',', $product->variant) as $variant)
+                    <flux:radio label="{{ $variant }}" value="{{ $variant }}" />
+                @endforeach
+            </flux:radio.group>
             
             <div class="mt-5">
                <flux:button variant="primary" wire:click="addToCart">Add to cart</flux:button>

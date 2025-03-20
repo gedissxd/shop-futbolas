@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Laravel</title>
+        <title>{{ $title ?? 'Laravel' }}</title>
         <link rel="icon" href="{{ asset('svg/logo no background fill.svg') }}">
  
         @vite('resources/css/app.css')

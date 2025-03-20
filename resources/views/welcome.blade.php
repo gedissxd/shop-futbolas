@@ -1,2 +1,2 @@
-<x-layout>
+<x-layout title="Home">
 </x-layout>
