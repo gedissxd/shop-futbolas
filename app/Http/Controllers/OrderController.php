@@ -10,9 +10,9 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $cartItems = Cart::all();
-        $orders = Order::all();
-        $orderItems = OrderItem::all();
-        return view('dashboard.orders', compact('cartItems', 'orders', 'orderItems'));
+      
+        $orders = Order::latest()->get();
+      
+        return view('dashboard.orders', compact( 'orders'));
     }
 }
