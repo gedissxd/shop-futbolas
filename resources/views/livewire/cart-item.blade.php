@@ -36,17 +36,14 @@
                     <div class="mt-6 border-t border-zinc-700 pt-6">
                         <form action="{{ route('checkout') }}" method="POST">
                             @csrf
-                            @error('pickupMethod')
+                            @error('phone')
                                 <div class="text-red-500">{{ $message }}</div>
                             @enderror
-                            <h3 class="font-medium text-lg mb-4">Pickup Method</h3>
                             <div class="space-y-4">
                                 <div>
-                                    <input type="hidden" name="pickupMethod" value="{{ $pickupMethod }}">
-                                    
-                                    <flux:radio.group wire:model="pickupMethod">
-                                        <flux:radio value="shop" label="Shop" name="shop"/>
-                                        <flux:radio value="terminal" label="Terminal" name="terminal"/>
+                                    <flux:radio.group wire:model="pickupMethod" label="Pickup Method">
+                                        <flux:radio value="shop" wire:click="setPickupMethod('shop')" label="Shop" name="shop"/>
+                                        <flux:radio value="terminal" wire:click="setPickupMethod('terminal')" label="Terminal" name="terminal"/>
                                     </flux:radio.group>
                                     <flux:select placeholder="Choose terminal..." class="w-full" name="terminal_id" x-show="$wire.pickupMethod === 'terminal'" class="mt-4">
                                         @foreach ($terminals as $terminal)
@@ -68,11 +65,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="p-4 bg-gray-800 mb-4 rounded">
-            <p>Debug - Current values:</p>
-            <p>Pickup Method: {{ $pickupMethod }}</p>
-            <p>Is Terminal Selected? {{ $pickupMethod === 'terminal' ? 'Yes' : 'No' }}</p>
         </div>
     @else
         <div class="text-center py-8 bg-zinc-800 rounded-lg border border-yellow-200">

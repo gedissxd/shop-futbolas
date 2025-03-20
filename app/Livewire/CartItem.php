@@ -11,7 +11,7 @@ class CartItem extends Component
 {
     public $carts = [];
     public $terminals = [];
-    public $pickupMethod = '';
+    public $pickupMethod = 'shop';
 
 
     public function mount()
@@ -20,6 +20,8 @@ class CartItem extends Component
         $this->refreshCart();
         
         $this->terminals = Terminal::all();
+        $this->pickupMethod = request()->input('pickupMethod', 'shop');
+
     }
 
     private function refreshCart()
@@ -64,7 +66,13 @@ class CartItem extends Component
         $this->refreshCart();
     }
 
-   
+    public function setPickupMethod($method)
+    {
+        $this->pickupMethod = $method;
+        session(['pickupMethod' => $method]);
+        return $this->pickupMethod;
+    }
+
     public function render()
     {
         return view('livewire.cart-item');

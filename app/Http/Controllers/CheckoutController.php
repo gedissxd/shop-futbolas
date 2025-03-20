@@ -9,8 +9,14 @@ use App\Models\OrderItem;
 use App\Models\Order;
 class CheckoutController extends Controller
 {
+    
     public function checkout(Request $request)
     {
+
+        $validated = $request->validate([
+            'phone' => 'required|phone:LT',
+        ]);
+
         $user = auth()->user();
         $carts = Cart::where('user_id', $user->id)->with('product')->get();
         
@@ -81,6 +87,6 @@ class CheckoutController extends Controller
         
         Cart::where('user_id', $user->id)->delete();
         
-        return view('checkout.success');
+        return view('checkout.success', compact('order'));
     }
 }
