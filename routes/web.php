@@ -11,6 +11,7 @@ use App\Models\Cart;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\DashboardUsersController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,7 +40,10 @@ Route::middleware(['auth'])->group(function () {
     //dashboard
     Route::get('/orders', [OrderController::class, 'index'])->name('dashboard.orders');
 
-    Route::get('/dashboard/users', [DashboardUsersController::class, 'index'])->name('dashboard.users');
+    Route::get('/dashboard/users', [UserController::class, 'index'])->name('dashboard.users');
+    Route::get('/dashboard/users/edit/{id}', [UserController::class, 'edit'])->name('dashboard.users.edit');
+
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/create', [DashboardController::class, 'create'])->name('dashboard.create');
     Route::post('/dashboard/create', [DashboardController::class, 'store'])->name('dashboard.store');
