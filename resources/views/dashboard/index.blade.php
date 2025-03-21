@@ -22,6 +22,9 @@
                 <h2 class="text-lg font-bold">{{ $product->name }}</h2>
                 <p class="text-sm text-gray-600">{{ $product->description }}</p>
                 <p class="text-lg font-bold">${{ $product->price }}</p>
+                <p class="text-sm text-gray-600 font-bold {{ $product->stock === 0 ? 'text-red-600' : '' }}">
+                    Stock: {{ $product->stock }} {{ $product->stock === 0 ? '(Out of stock)' : '' }}
+                </p>
                 </div>
                 <div class="flex ml-auto gap-2">
                     <flux:button href="{{ route('dashboard.edit', $product->id) }}">Edit</flux:button>

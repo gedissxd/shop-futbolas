@@ -7,6 +7,8 @@ use App\Models\Cart;
 use App\Models\Terminal;
 use App\Models\OrderItem;
 use App\Models\Order;
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 class CheckoutController extends Controller
 {
     
@@ -20,6 +22,13 @@ class CheckoutController extends Controller
         $user = auth()->user();
         $carts = Cart::where('user_id', $user->id)->with('product')->get();
         
+        // Check if all cart items have enough stock
+        foreach ($carts as $cartItem) {
+            if ($cartItem->quantity > $cartItem->product->stock) {
+                return redirect()->route('cart')->with('error', 
+                    "Sorry, '{$cartItem->product->name}' doesn't have enough stock. Only {$cartItem->product->stock} available.");
+            }
+        }
         
         $lineItems = [];
         
@@ -62,30 +71,47 @@ class CheckoutController extends Controller
 
         $carts = Cart::where('user_id', $user->id)->with('product')->get();
 
-    
-
-        $order = Order::create([
-            'user_id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'phone' => $checkout->metadata->phone ?? '',
-            'payment' => 'stripe',
-            'status' => 'paid',
-            'terminal' => $checkout->metadata->terminal_id ?? '',
-            'pickup_method' => $checkout->metadata->pickup_method ?? '',
-        ]);
+        // Start a database transaction to ensure stock reduction and order creation happen together
+        DB::beginTransaction();
         
-        
-        foreach ($carts as $cartItem) {
-            $orderItem = OrderItem::create([
-                'order_id' => $order->id,
-                'product_name' => $cartItem->product->name,
-                'size' => $cartItem->size,
-                'quantity' => $cartItem->quantity,
+        try {
+            $order = Order::create([
+                'user_id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'phone' => $checkout->metadata->phone ?? '',
+                'payment' => 'stripe',
+                'status' => 'paid',
+                'terminal' => $checkout->metadata->terminal_id ?? '',
+                'pickup_method' => $checkout->metadata->pickup_method ?? '',
             ]);
+            
+            
+            foreach ($carts as $cartItem) {
+                // Create order item
+                $orderItem = OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_name' => $cartItem->product->name,
+                    'size' => $cartItem->size,
+                    'quantity' => $cartItem->quantity,
+                ]);
+                
+                // Reduce stock
+                $product = Product::find($cartItem->product->id);
+                if ($product) {
+                    $product->stock = max(0, $product->stock - $cartItem->quantity);
+                    $product->save();
+                }
+            }
+            
+            Cart::where('user_id', $user->id)->delete();
+            
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            // Handle the exception - log it and show an error message
+            return redirect()->route('cart')->with('error', 'An error occurred while processing your order. Please try again.');
         }
-        
-        Cart::where('user_id', $user->id)->delete();
         
         return view('checkout.success', compact('order'));
     }

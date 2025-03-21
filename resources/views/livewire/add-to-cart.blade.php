@@ -7,6 +7,10 @@
             <p class="text-white mt-5">{{ $product->description }}</p>
             <p class="text-white">{{ $product->price }}€</p>
             
+            <div class="mt-2">
+                {{ $product->stock > 0 ? 'In stock: ' . $product->stock . ' units' : 'Out of stock' }}
+            </div>
+            
             @if ($message)
             <div x-data="{ show: true }" 
                  x-init="setTimeout(() => { show = false; $wire.set('message', null); }, 1000)" 
@@ -32,8 +36,7 @@
             </flux:radio.group>
             
             <div class="mt-5">
-               <flux:button variant="primary" wire:click="addToCart">Add to cart</flux:button>
-               
+                <flux:button variant="primary" wire:click="addToCart" :disabled="$product->stock <= 0">Add to cart</flux:button>
             </div>
         </div>
     </div>

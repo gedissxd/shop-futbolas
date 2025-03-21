@@ -31,7 +31,12 @@ class CartItem extends Component
 
     public function increment($id)
     {
+        if ($this->carts->sum('quantity') >= $this->carts->sum('product.stock')) {  
+            session()->flash('error', 'You have reached the maximum stock limit');
+            return;
+        }
         $cart = Cart::find($id)?->increment('quantity');
+
         $this->refreshCart();
         $this->dispatch('cartUpdated');
     }

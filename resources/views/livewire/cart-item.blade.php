@@ -4,6 +4,9 @@
             <div class="col-span-1 bg-zinc-800 p-3 sm:p-4 rounded-lg border border-yellow-200">
                 <div class="space-y-4">
                     @foreach ($carts as $cart)
+                    @if  (session()->has('error'))
+                        <div class="text-red-500">{{ session('error') }}</div>
+                    @endif
                     <div class="border-b border-zinc-700 pb-4 mb-4 last:border-0 last:mb-0 last:pb-0">
                         <div class="flex items-center gap-3">
                             <img src="{{ $cart->product->image }}" alt="{{ $cart->product->name }}" class="size-16 sm:size-20 md:size-24 object-cover rounded">
