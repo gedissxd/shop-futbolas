@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\DashboardUsersController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [ProductController::class, 'showfour'])->name('home');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
