@@ -12,8 +12,8 @@
                             <img src="{{ $cart->product->image }}" alt="{{ $cart->product->name }}" class="size-16 sm:size-20 md:size-24 object-cover rounded">
                             <div class="flex-1">
                                 <h3 class="font-medium">{{ $cart->product->name }}</h3>
-                                <div class="text-sm text-zinc-400">Size: {{ $cart->size }}</div>
-                                <div class="text-sm text-zinc-400">Price: {{ $cart->product->price * $cart->quantity }}€</div>
+                                <div class="text-sm text-zinc-400">{{ __('Size') }}: {{ $cart->size }}</div>
+                                <div class="text-sm text-zinc-400">{{ __('Price') }}: {{ $cart->product->price * $cart->quantity }}€</div>
                             </div>
                         </div>
                         <div class="flex items-center justify-between mt-3">
@@ -35,19 +35,19 @@
                 </div>
                 
                 <div class="mt-4 border-t border-zinc-700 pt-4">
-                    <h3 class="text-right font-medium text-lg">Total: {{ $this->getCartTotal() }}€</h3>
+                    <h3 class="text-right font-medium text-lg">{{ __('Total') }}: {{ $this->getCartTotal() }}€</h3>
                     <div class="mt-6 border-t border-zinc-700 pt-6">
                         <form action="{{ route('checkout') }}" method="POST">
                             @csrf
                            
                             <div class="space-y-4">
                                 <div>
-                                    <flux:radio.group wire:model="pickupMethod" label="Pickup Method">
-                                        <flux:radio value="shop" wire:click="setPickupMethod('shop')" label="Shop" name="pickupMethod"/>
-                                        <flux:radio value="terminal" wire:click="setPickupMethod('terminal')" label="Terminal" name="pickupMethod"/>
+                                    <flux:radio.group wire:model="pickupMethod" label="{{ __('Pickup Method') }}">
+                                        <flux:radio value="shop" wire:click="setPickupMethod('shop')" label="{{ __('Shop') }}" name="pickupMethod"/>
+                                        <flux:radio value="terminal" wire:click="setPickupMethod('terminal')" label="{{ __('LP Express Terminal') }}" name="pickupMethod"/>
                                     </flux:radio.group>
                                     <input type="hidden" name="pickupMethod" value="{{ $pickupMethod }}">
-                                    <flux:select placeholder="Choose terminal..." class="w-full" name="terminal_id" x-show="$wire.pickupMethod === 'terminal'" class="mt-4">
+                                    <flux:select placeholder="{{ __('Choose terminal...') }}" class="w-full" name="terminal_id" x-show="$wire.pickupMethod === 'terminal'" class="mt-4">
                                         @foreach ($terminals as $terminal)
                                             <flux:select.option value="{{ $terminal->id }}">{{ $terminal->city }}: {{ $terminal->adress }} {{ $terminal->name }}</flux:select.option> 
                                         @endforeach
@@ -57,12 +57,12 @@
                                 <div class="flex flex-col space-y-4">
                                     
                                 </div>
-                                <flux:input placeholder="+370" label="Phone number" required class="w-full" name="phone" value="{{ old('phone') }}" />
+                                <flux:input placeholder="+370" label="{{ __('Phone number') }}" required class="w-full" name="phone" value="{{ old('phone') }}" />
                             </div>
                         </div>
                         
                         <div class="flex justify-end mt-6">
-                            <flux:button type="submit" variant="primary" class="px-6 py-2">Checkout</flux:button>
+                            <flux:button type="submit" variant="primary" class="px-6 py-2">{{ __('Checkout') }}</flux:button>
                         </form>
                     </div>
                 </div>
@@ -70,8 +70,8 @@
         </div>
     @else
         <div class="text-center py-8 bg-zinc-800 rounded-lg border border-yellow-200">
-            <p class="text-white mb-4">Your cart is empty</p>
-            <a href="{{ route('products') }}" class="text-blue-500 hover:underline">Continue Shopping</a>
+            <p class="text-white mb-4">{{ __('Your cart is empty') }}</p>
+            <a href="{{ route('products') }}" class="text-blue-500 hover:underline">{{ __('Continue Shopping') }}</a>
         </div>
     @endif
 </div>

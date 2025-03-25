@@ -8,7 +8,7 @@
             <p class="text-white">{{ $product->price }}€</p>
             
             <div class="mt-2">
-                {{ $product->stock > 0 ? 'In stock: ' . $product->stock . ' units' : 'Out of stock' }}
+                {{ $product->stock > 0 ? __('In stock: ') . $product->stock : __('Out of stock') }}
             </div>
             
             @if ($message)
@@ -36,7 +36,7 @@
             </flux:radio.group>
             
             <div class="mt-5">
-                <flux:button variant="primary" wire:click="addToCart" :disabled="$product->stock <= 0">Add to cart</flux:button>
+                <flux:button variant="primary" wire:click="addToCart" :disabled="$product->stock <= 0">{{ __('Add to cart') }}</flux:button>
             </div>
         </div>
     </div>
