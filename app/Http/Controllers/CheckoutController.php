@@ -14,51 +14,62 @@ class CheckoutController extends Controller
     
     public function checkout(Request $request)
     {
-
-        $validated = $request->validate([
-            'phone' => 'required|phone:LT',
-        ]);
-
-        $user = auth()->user();
-        $carts = Cart::where('user_id', $user->id)->with('product')->get();
         
-        // Check if all cart items have enough stock
-        foreach ($carts as $cartItem) {
-            if ($cartItem->quantity > $cartItem->product->stock) {
-                return redirect()->route('cart')->with('error', 
-                    "Sorry, '{$cartItem->product->name}' doesn't have enough stock. Only {$cartItem->product->stock} available.");
+            $validated = $request->validate([
+                
+                'phone' => 'required|phone:LT',
+                'pickupMethod' => 'required|in:shop,terminal',
+            ]);
+
+            if ($request->pickupMethod === 'terminal' && !$request->has('terminal_id')) {
+                return redirect()->route('cart')->with('error', 'Please select a terminal for pickup.');
             }
-        }
-        
-        $lineItems = [];
-        
-        foreach ($carts as $cartItem) {
-            $lineItems[] = [
-                'price_data' => [
-                    'currency' => 'eur',
-                    'product_data' => [
-                        'name' => $cartItem->product->name . ' (' . $cartItem->size . ')',
+
+            $user = auth()->user();
+            $carts = Cart::where('user_id', $user->id)->with('product')->get();
+            
+            // Check if cart is empty
+            if ($carts->isEmpty()) {
+                return redirect()->route('cart')->with('error', 'Your cart is empty.');
+            }
+            
+            // Check if all cart items have enough stock
+            foreach ($carts as $cartItem) {
+                if ($cartItem->quantity > $cartItem->product->stock) {
+                    return redirect()->route('cart')->with('error', 
+                        "Sorry, '{$cartItem->product->name}' doesn't have enough stock. Only {$cartItem->product->stock} available.");
+                }
+            }
+            
+            $lineItems = [];
+            
+            foreach ($carts as $cartItem) {
+                $lineItems[] = [
+                    'price_data' => [
+                        'currency' => 'eur',
+                        'product_data' => [
+                            'name' => $cartItem->product->name . ' (' . $cartItem->size . ')',
+                        ],
+                        'unit_amount' => $cartItem->product->price * 100,
                     ],
-                    'unit_amount' => $cartItem->product->price * 100,
+                    'quantity' => $cartItem->quantity,
+                ];
+            }
+            
+            
+            $checkout = $user->checkout($lineItems, 
+            [
+                'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('cart'),
+                'metadata' => [
+                    'user_id' => $user->id,
+                    'phone' => $request->phone,
+                    'pickup_method' => $request->pickupMethod,
+                    'terminal_id' => $request->pickupMethod === 'terminal' ? $request->terminal_id : null,
                 ],
-                'quantity' => $cartItem->quantity,
-            ];
-        }
-        
-        
-        $checkout = $user->checkout($lineItems, 
-        [
-            'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => route('cart'),
-            'metadata' => [
-                'user_id' => $user->id,
-                'phone' => $request->phone,
-                'pickup_method' => $request->pickupMethod,
-                'terminal_id' => $request->pickupMethod === 'terminal' ? $request->terminal_id : null,
-            ],
-        ]);
-        
-        return redirect($checkout->url);
+            ]);
+            
+            return redirect($checkout->url);
     }
     
     public function success(Request $request)

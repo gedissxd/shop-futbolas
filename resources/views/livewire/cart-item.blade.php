@@ -39,15 +39,14 @@
                     <div class="mt-6 border-t border-zinc-700 pt-6">
                         <form action="{{ route('checkout') }}" method="POST">
                             @csrf
-                            @error('phone')
-                                <div class="text-red-500">{{ $message }}</div>
-                            @enderror
+                           
                             <div class="space-y-4">
                                 <div>
                                     <flux:radio.group wire:model="pickupMethod" label="Pickup Method">
-                                        <flux:radio value="shop" wire:click="setPickupMethod('shop')" label="Shop" name="shop"/>
-                                        <flux:radio value="terminal" wire:click="setPickupMethod('terminal')" label="Terminal" name="terminal"/>
+                                        <flux:radio value="shop" wire:click="setPickupMethod('shop')" label="Shop" name="pickupMethod"/>
+                                        <flux:radio value="terminal" wire:click="setPickupMethod('terminal')" label="Terminal" name="pickupMethod"/>
                                     </flux:radio.group>
+                                    <input type="hidden" name="pickupMethod" value="{{ $pickupMethod }}">
                                     <flux:select placeholder="Choose terminal..." class="w-full" name="terminal_id" x-show="$wire.pickupMethod === 'terminal'" class="mt-4">
                                         @foreach ($terminals as $terminal)
                                             <flux:select.option value="{{ $terminal->id }}">{{ $terminal->city }}: {{ $terminal->adress }} {{ $terminal->name }}</flux:select.option> 
