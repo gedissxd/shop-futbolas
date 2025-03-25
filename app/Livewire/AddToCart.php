@@ -21,6 +21,11 @@ class AddToCart extends Component
 
     public function addToCart()
     {
+        if (!Auth::check()) {
+            $this->redirect(route('login'));
+            return;
+        }
+
         if ($this->product->stock <= 0) {
             $this->message = 'This product is out of stock';
             return;
