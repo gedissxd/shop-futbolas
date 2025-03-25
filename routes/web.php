@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard/users', [UserController::class, 'index'])->name('dashboard.users');
     Route::get('/dashboard/users/edit/{id}', [UserController::class, 'edit'])->name('dashboard.users.edit');
+    Route::patch('/dashboard/users/edit/{id}', [UserController::class, 'update'])->name('dashboard.users.update');
 
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

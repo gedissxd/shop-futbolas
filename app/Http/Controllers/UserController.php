@@ -20,4 +20,11 @@ class UserController extends Controller
 
         return view('dashboard.users.edit', compact('user'));
     }
+
+    public function update($id, Request $request)
+    {
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+        return redirect()->route('dashboard.users');
+    }
 }
