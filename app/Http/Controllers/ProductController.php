@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function showfour()
     {
         $products = Product::take(4)->get();
-        return view('welcome', compact('products'));
+        return view('home', compact('products'));
     }
 
     
