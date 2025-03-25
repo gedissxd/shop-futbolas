@@ -6,6 +6,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\Terminal;
+use Livewire\Attributes\On;
 
 class CartItem extends Component
 {
@@ -29,28 +30,44 @@ class CartItem extends Component
         $this->carts = Cart::where('user_id', auth()->id())->with('product')->get();
     }
 
+    #[On('cartUpdated')]
+    public function refreshCartData()
+    {
+        $this->refreshCart();
+    }
+
     public function increment($id)
     {
+        $cart = Cart::find($id);
+        
+        if (!$cart) {
+            return;
+        }
+        
         if ($this->carts->sum('quantity') >= $this->carts->sum('product.stock')) {  
             session()->flash('error', 'You have reached the maximum stock limit');
             return;
         }
-        $cart = Cart::find($id)?->increment('quantity');
-
-        $this->refreshCart();
+        
+        $cart->increment('quantity');
         $this->dispatch('cartUpdated');
     }
+    
     public function decrement($id)
     {
         $cart = Cart::find($id);
+        
+        if (!$cart) {
+            return;
+        }
+        
         if ($cart->quantity > 1) {
             $cart->decrement('quantity');
         }
         
-        $this->refreshCart();
         $this->dispatch('cartUpdated');
-      
     }
+
     public function getCartTotal()
     {
         return $this->carts->sum(function($cart) {
@@ -66,9 +83,13 @@ class CartItem extends Component
     public function delete($id)
     {
         $cart = Cart::find($id);
+        
+        if (!$cart) {
+            return;
+        }
+        
         $cart->delete();
         $this->dispatch('cartUpdated');
-        $this->refreshCart();
     }
 
     public function setPickupMethod($method)
