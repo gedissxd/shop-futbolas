@@ -47,11 +47,13 @@
                                         <flux:radio value="terminal" wire:click="setPickupMethod('terminal')" label="{{ __('LP Express Terminal') }}" name="pickupMethod"/>
                                     </flux:radio.group>
                                     <input type="hidden" name="pickupMethod" value="{{ $pickupMethod }}">
+                                    @if($pickupMethod === 'terminal')
                                     <flux:select placeholder="{{ __('Choose terminal...') }}" class="w-full" name="terminal_id" x-show="$wire.pickupMethod === 'terminal'" class="mt-4">
                                         @foreach ($this->getTerminals() as $terminal)
                                             <flux:select.option value="{{ $terminal->id }}">{{ $terminal->city }}: {{ $terminal->address }} {{ $terminal->name }}</flux:select.option> 
                                         @endforeach
                                     </flux:select>
+                                    @endif
                                 </div>
                                 
                                 <div class="flex flex-col space-y-4">

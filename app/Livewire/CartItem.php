@@ -26,7 +26,11 @@ class CartItem extends Component
 
     private function refreshCart()
     {
-        $this->carts = Cart::where('user_id', auth()->id())->with('product')->get();
+        $this->carts = Cart::where('user_id', auth()->id())
+            ->with(['product' => function($query) {
+                $query->select('id', 'name', 'price', 'stock', 'image');
+            }])
+            ->get();
     }
 
     #[On('cartUpdated')]
@@ -37,7 +41,7 @@ class CartItem extends Component
 
     public function increment($id)
     {
-        $cart = Cart::find($id);
+        $cart = $this->carts->firstWhere('id', $id);
         
         if (!$cart) {
             return;
@@ -54,7 +58,7 @@ class CartItem extends Component
     
     public function decrement($id)
     {
-        $cart = Cart::find($id);
+        $cart = $this->carts->firstWhere('id', $id);
         
         if (!$cart) {
             return;
@@ -81,7 +85,7 @@ class CartItem extends Component
 
     public function delete($id)
     {
-        $cart = Cart::find($id);
+        $cart = $this->carts->firstWhere('id', $id);
         
         if (!$cart) {
             return;
