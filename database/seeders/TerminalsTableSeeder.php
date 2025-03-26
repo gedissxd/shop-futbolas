@@ -42,7 +42,7 @@ class TerminalsTableSeeder extends Seeder
             DB::table('terminals')->insert([
                 'name' => trim($data[0], '"'),  // First column as name
                 'city' => trim($data[1], '"'),  // Second column as city 
-                'adress' => isset($data[2]) ? trim($data[2], '"') : null, // Third column as address
+                'address' => isset($data[2]) ? trim($data[2], '"') : null, // Third column as address
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

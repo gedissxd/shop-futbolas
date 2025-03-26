@@ -76,8 +76,8 @@ class CartItem extends Component
     }
     public function getTerminals()
     {
-        $terminals = Terminal::orderBy('city', 'asc')->get();
-        return $terminals;
+        return Terminal::orderBy('city')->get(['id', 'city', 'name', 'address']);
+
     }
 
     public function delete($id)
