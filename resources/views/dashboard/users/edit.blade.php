@@ -2,9 +2,9 @@
     <form action="" method="POST" class="space-y-4">
         @csrf
         @method('PATCH')
-        <flux:input name="name" label="Name" value="{{ $user->name }}" />
-        <flux:input name="email" label="Email" value="{{ $user->email }}" />
-        <flux:input name="is_admin" label="Is Admin (1 is yes, 0 is no)" value="{{ $user->is_admin }}" />
-        <flux:button type="submit">Update</flux:button>
+        <flux:input name="name" label="{{ __('Name') }}" value="{{ $user->name }}" />
+        <flux:input name="email" label="{{ __('Email address') }}" value="{{ $user->email }}" />
+        <flux:input name="is_admin" label="{{ __('Is Admin (1 is yes, 0 is no)') }}" value="{{ $user->is_admin }}" />
+        <flux:button variant="primary" type="submit">{{ __('Update') }}</flux:button>
     </form>
 </x-layouts.app>

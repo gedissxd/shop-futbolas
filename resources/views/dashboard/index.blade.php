@@ -10,7 +10,7 @@
     </div>
     @endif
     <div class="mb-5">
-        <flux:button href="{{ route('dashboard.create') }}">Add Product</flux:button>
+        <flux:button href="{{ route('dashboard.create') }}">{{ __('Add Product') }}</flux:button>
     </div>
     <div class="space-y-4">
         @foreach ($products as $product)
@@ -23,15 +23,15 @@
                 <p class="text-sm text-gray-600">{{ $product->description }}</p>
                 <p class="text-lg font-bold">${{ $product->price }}</p>
                 <p class="text-sm text-gray-600 font-bold {{ $product->stock === 0 ? 'text-red-600' : '' }}">
-                    Stock: {{ $product->stock }} {{ $product->stock === 0 ? '(Out of stock)' : '' }}
+                    {{ __('Stock') }}: {{ $product->stock }} {{ $product->stock === 0 ? '(Out of stock)' : '' }}
                 </p>
                 </div>
                 <div class="flex ml-auto gap-2">
-                    <flux:button href="{{ route('dashboard.edit', $product->id) }}">Edit</flux:button>
+                    <flux:button href="{{ route('dashboard.edit', $product->id) }}">{{ __('Edit') }}</flux:button>
                     <form action="{{ route('dashboard.destroy', $product->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <flux:button type="submit" variant="danger" class="cursor-pointer">Delete</flux:button>
+                        <flux:button type="submit" variant="danger" class="cursor-pointer">{{ __('Delete') }}</flux:button>
                     </form>
                  
                 </div>

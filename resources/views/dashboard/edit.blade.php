@@ -1,19 +1,19 @@
 <x-layouts.app title="Dashboard">
-    <h1 class="text-2xl font-bold mb-4">Edit Product</h1>
+    <h1 class="text-2xl font-bold mb-4">{{ __('Edit Product') }}</h1>
     <form action="{{ route('dashboard.update', $product->id) }}" method="POST">
         @csrf
         @method('PATCH')
-        <flux:input name="name" type="text" required value="{{ old('name', $product->name) }}" label="Name" class="mb-4"/>
-        <flux:input name="price" type="number" step="any" required value="{{ old('price', $product->price) }}" label="Price" class="mb-4"/>
-        <flux:input name="description" type="text" required value="{{ old('description', $product->description) }}" label="Description" class="mb-4"/>
-        <flux:input name="image" type="text" required value="{{ old('image', $product->image) }}" label="Image URL" class="mb-4"/>
-        <flux:input name="variant" type="text" required value="{{ old('variant', $product->variant) }}" label="Variants" class="mb-4"/>
-        <flux:input name="stock" type="number" min="0" required value="{{ old('stock', $product->stock) }}" label="Stock" class="mb-4"/>
-        <flux:button type="submit" class="bg-green-800!">Update</flux:button>
-        <flux:button href="{{ route('dashboard') }}">Cancel</flux:button>
+        <flux:input name="name" type="text" required value="{{ old('name', $product->name) }}" label="{{ __('Name') }}" class="mb-4"/>
+        <flux:input name="price" type="number" step="any" required value="{{ old('price', $product->price) }}" label="{{ __('Price') }}" class="mb-4"/>
+        <flux:input name="description" type="text" required value="{{ old('description', $product->description) }}" label="{{ __('Description') }}" class="mb-4"/>
+        <flux:input name="image" type="text" required value="{{ old('image', $product->image) }}" label="{{ __('Image URL') }}" class="mb-4"/>
+        <flux:input name="variant" type="text" required value="{{ old('variant', $product->variant) }}" label="{{ __('Variants') }}" class="mb-4"/>
+        <flux:input name="stock" type="number" min="0" required value="{{ old('stock', $product->stock) }}" label="{{ __('Stock') }}" class="mb-4"/>
+        <flux:button type="submit" class="bg-green-800!">{{ __('Update') }}</flux:button>
+        <flux:button href="{{ route('dashboard') }}">{{ __('Cancel') }}</flux:button>
     </form>
 
-    <h1>Preview</h1>
+    <h1>{{ __('Preview') }}</h1>
    
         <div class="bg-white  rounded-lg w-1/4">
            <div class="w-full h-48 overflow-hidden h-[360px]">

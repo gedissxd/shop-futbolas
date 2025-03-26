@@ -32,20 +32,6 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 
-
-
-
-   
-    
-
-   
-
-
- 
-
-    //stripe
-
-    
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 
     Route::middleware('can:admin-access')->group(function () {

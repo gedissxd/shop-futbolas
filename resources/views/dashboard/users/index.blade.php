@@ -9,11 +9,11 @@
     <p class="text-sm text-gray-600">{{ $user->email }}</p>
     </div>
     <div class="flex ml-auto gap-2">
-        <flux:button href="{{ route('dashboard.users.edit', $user->id) }}">Edit</flux:button>
+        <flux:button href="{{ route('dashboard.users.edit', $user->id) }}">{{ __('Edit') }}</flux:button>
         <form action="" method="POST">
             @csrf
             @method('DELETE')
-            <flux:button type="submit" variant="danger" class="cursor-pointer">Delete</flux:button>
+            <flux:button type="submit" variant="danger" class="cursor-pointer">{{ __('Delete') }}</flux:button>
         </form>
      
     </div>
