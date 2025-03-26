@@ -19,8 +19,7 @@ class CartItem extends Component
     {
         $userId = auth()->id();
         $this->refreshCart();
-        
-        $this->terminals = Terminal::all();
+     
         $this->pickupMethod = request()->input('pickupMethod', 'shop');
 
     }
@@ -45,7 +44,7 @@ class CartItem extends Component
         }
         
         if ($this->carts->sum('quantity') >= $this->carts->sum('product.stock')) {  
-            session()->flash('error', 'You have reached the maximum stock limit');
+            session()->flash('error', __('You have reached the maximum :amount limit', ['amount' => $this->carts->sum('product.stock')]));
             return;
         }
         
