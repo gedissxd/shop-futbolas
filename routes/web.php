@@ -35,25 +35,32 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    //dashboard
-    Route::get('/orders', [OrderController::class, 'index'])->name('dashboard.orders');
-
-    Route::get('/dashboard/users', [UserController::class, 'index'])->name('dashboard.users');
-    Route::get('/dashboard/users/edit/{id}', [UserController::class, 'edit'])->name('dashboard.users.edit');
-    Route::patch('/dashboard/users/edit/{id}', [UserController::class, 'update'])->name('dashboard.users.update');
-
-
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/create', [DashboardController::class, 'create'])->name('dashboard.create');
-    Route::post('/dashboard/create', [DashboardController::class, 'store'])->name('dashboard.store');
-    Route::get('/dashboard/edit/{id}', [DashboardController::class, 'edit'])->name('dashboard.edit');
+   
     
-    Route::patch('/dashboard/update/{id}', [DashboardController::class, 'update'])->name('dashboard.update');
-    Route::delete('/dashboard/update/{id}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
+
+   
+
+
+ 
 
     //stripe
 
-    Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+    
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+
+    Route::middleware('can:admin-access')->group(function () {
+        Route::get('/orders', [OrderController::class, 'index'])->name('dashboard.orders');
+        Route::get('/dashboard/users', [UserController::class, 'index'])->name('dashboard.users');
+        Route::get('/dashboard/users/edit/{id}', [UserController::class, 'edit'])->name('dashboard.users.edit');
+        Route::patch('/dashboard/users/edit/{id}', [UserController::class, 'update'])->name('dashboard.users.update');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard/create', [DashboardController::class, 'create'])->name('dashboard.create');
+        Route::post('/dashboard/create', [DashboardController::class, 'store'])->name('dashboard.store');
+        Route::get('/dashboard/edit/{id}', [DashboardController::class, 'edit'])->name('dashboard.edit'); 
+        Route::patch('/dashboard/update/{id}', [DashboardController::class, 'update'])->name('dashboard.update');
+        Route::delete('/dashboard/update/{id}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
+        Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+        
+    });
 });
 require __DIR__.'/auth.php';
