@@ -1,7 +1,7 @@
 <div class="mx-auto p-4 sm:p-6 text-white w-full max-w-4xl mt-6 sm:mt-12 mb-10 sm:mb-20">
     @if(count($carts) > 0)
         <div>
-            <div class="col-span-1 bg-zinc-800 p-3 sm:p-4 rounded-lg border border-yellow-200">
+            <div class="col-span-1 dark:bg-zinc-800 p-3 sm:p-4 rounded-lg border shadow-md border-zinc-200 dark:border-yellow-200">
                 <div class="space-y-4">
                     @foreach ($carts as $cart)
                     @if  (session()->has('error'))
@@ -11,22 +11,22 @@
                         <div class="flex items-center gap-3">
                             <img src="{{ $cart->product->image }}" alt="{{ $cart->product->name }}" class="size-16 sm:size-20 md:size-24 object-cover rounded">
                             <div class="flex-1">
-                                <h3 class="font-medium">{{ $cart->product->name }}</h3>
+                                <h3 class="font-medium text-black dark:text-white">{{ $cart->product->name }}</h3>
                                 <div class="text-sm text-zinc-400">{{ __('Size') }}: {{ $cart->size }}</div>
                                 <div class="text-sm text-zinc-400">{{ __('Price') }}: {{ $cart->product->price * $cart->quantity }}€</div>
                             </div>
                         </div>
                         <div class="flex items-center justify-between mt-3">
                             <div class="flex items-center border border-zinc-600 rounded-lg">
-                                <button class="p-2 cursor-pointer @php if($cart->quantity == 1) { echo 'hidden'; } @endphp" wire:click="decrement({{ $cart->id }})">
-                                    <flux:icon.minus class="w-5 h-5" />
+                                <button class="p-2 cursor-pointer {{ $cart->quantity == 1 ? 'hidden' : '' }}" wire:click.throttle.500ms="decrement({{ $cart->id }})">
+                                    <flux:icon.minus class="w-5 h-5 text-black dark:text-white" />
                                 </button>
-                                <button class="p-2 text-red-300 hover:text-red-900 @php if($cart->quantity > 1) { echo 'hidden'; } @endphp" wire:click="delete({{ $cart->id }})">
+                                <button class="p-2 text-red-300 hover:text-red-900 {{ $cart->quantity > 1 ? 'hidden' : '' }}" wire:click="delete({{ $cart->id }})">
                                     <flux:icon.trash class="w-5 h-5"/>
                                 </button>
-                                <span class="px-4 font-medium">{{ $cart->quantity }}</span>
-                                <button class="p-2 cursor-pointer" wire:click="increment({{ $cart->id }})">
-                                    <flux:icon.plus class="w-5 h-5" />
+                                <span class="px-4 font-medium text-black dark:text-white">{{ $cart->quantity }}</span>
+                                <button class="p-2 cursor-pointer" wire:click.throttle.500ms="increment({{ $cart->id }})">
+                                    <flux:icon.plus class="w-5 h-5 text-black dark:text-white" />
                                 </button>
                             </div>
                         </div>

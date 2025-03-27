@@ -1,11 +1,11 @@
 <div>
     <div class="flex p-8">
         
-        <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-1/2 mr-16 rounded-lg">
+        <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-1/2 mr-16 rounded-lg shadow-md">
         <div class="w-1/2">
-            <h1 class="text-2xl font-bold text-white">{{ $product->name }}</h1>
-            <p class="text-white mt-5">{{ $product->description }}</p>
-            <p class="text-white">{{ $product->price }}€</p>
+            <h1 class="text-2xl font-bold text-black dark:text-white">{{ $product->name }}</h1>
+            <p class="text-black dark:text-white mt-5">{{ $product->description }}</p>
+            <p class="text-black dark:text-white">{{ $product->price }}€</p>
             
             <div class="mt-2">
                 {{ $product->stock > 0 ? __('In stock: ') . $product->stock : __('Out of stock') }}
@@ -29,14 +29,14 @@
           
             
            
-            <flux:radio.group wire:model="size" variant="segmented" class="mt-5">
+            <flux:radio.group wire:model="size" variant="segmented" class="mt-5 shadow-md">
                 @foreach (explode(',', $product->variant) as $variant)
                     <flux:radio label="{{ $variant }}" value="{{ $variant }}" />
                 @endforeach
             </flux:radio.group>
             
             <div class="mt-5">
-                <flux:button variant="primary" wire:click="addToCart" :disabled="$product->stock <= 0">{{ __('Add to cart') }}</flux:button>
+                <flux:button variant="primary" wire:click="addToCart" :disabled="$product->stock <= 0" >{{ __('Add to cart') }}</flux:button>
             </div>
         </div>
     </div>

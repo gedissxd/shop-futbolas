@@ -16,7 +16,7 @@
             {{ $slot }}
         </main>
         
-        <footer class="bg-zinc-800 border-t border-zinc-700 w-full">
+        <footer class="border-t border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800">
             
             <div class="flex justify-between">
                 <div class="flex items-center justify-center">

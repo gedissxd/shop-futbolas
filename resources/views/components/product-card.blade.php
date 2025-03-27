@@ -1,4 +1,4 @@
-<a href="{{ route('products.show', $product->id) }}" wire:navigate>
+<a href="{{ route('products.show', $product->id) }}" wire:navigate.hover>
     <div class="bg-white  w-full rounded-lg">
        <div class="w-full h-48 overflow-hidden h-[360px]">
            <img src="{{ $product->image }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
