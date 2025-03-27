@@ -48,7 +48,7 @@
                                     </flux:radio.group>
                                     <input type="hidden" name="pickupMethod" value="{{ $pickupMethod }}">
                                     @if($pickupMethod === 'terminal')
-                                    <flux:select placeholder="{{ __('Choose terminal...') }}" class="w-full" name="terminal_id" x-show="$wire.pickupMethod === 'terminal'" class="mt-4">
+                                    <flux:select placeholder="{{ __('Choose terminal...') }}" class="w-full" name="terminal_id" x-if="$wire.pickupMethod === 'terminal'" class="mt-4">
                                         @foreach ($this->getTerminals() as $terminal)
                                             <flux:select.option value="{{ $terminal->id }}">{{ $terminal->city }}: {{ $terminal->address }} {{ $terminal->name }}</flux:select.option> 
                                         @endforeach
