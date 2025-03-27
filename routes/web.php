@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware('can:admin-access')->group(function () {
         Route::get('/orders', [OrderController::class, 'index'])->name('dashboard.orders');
         Route::get('/dashboard/users', [UserController::class, 'index'])->name('dashboard.users');
+        Route::delete('/dashboard/users/delete/{id}', [UserController::class, 'destroy'])->name('dashboard.users.destroy');
         Route::get('/dashboard/users/edit/{id}', [UserController::class, 'edit'])->name('dashboard.users.edit');
         Route::patch('/dashboard/users/edit/{id}', [UserController::class, 'update'])->name('dashboard.users.update');
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -27,4 +27,11 @@ class UserController extends Controller
         $user->update($request->all());
         return redirect()->route('dashboard.users');
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('dashboard.users');
+    }
 }
