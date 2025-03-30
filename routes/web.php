@@ -23,6 +23,7 @@ Route::get('/cart', function () {
 })->name('cart');
 
 
+
     
 Route::middleware(['auth'])->group(function () {
 

@@ -18,14 +18,14 @@
                         </div>
                         <div class="flex items-center justify-between mt-3">
                             <div class="flex items-center border border-zinc-600 rounded-lg">
-                                <button class="p-2 cursor-pointer {{ $cart->quantity == 1 ? 'hidden' : '' }}" wire:click.throttle.500ms="decrement({{ $cart->id }})">
+                                <button class="p-2 cursor-pointer {{ $cart->quantity == 1 ? 'hidden' : '' }}" wire:click.throttle.300ms="decrement({{ $cart->id }})">
                                     <flux:icon.minus class="w-5 h-5 text-black dark:text-white" />
                                 </button>
                                 <button class="p-2 text-red-300 hover:text-red-900 {{ $cart->quantity > 1 ? 'hidden' : '' }}" wire:click="delete({{ $cart->id }})">
                                     <flux:icon.trash class="w-5 h-5"/>
                                 </button>
                                 <span class="px-4 font-medium text-black dark:text-white">{{ $cart->quantity }}</span>
-                                <button class="p-2 cursor-pointer" wire:click.throttle.500ms="increment({{ $cart->id }})">
+                                <button class="p-2 cursor-pointer" wire:click.throttle.300ms="increment({{ $cart->id }})">
                                     <flux:icon.plus class="w-5 h-5 text-black dark:text-white" />
                                 </button>
                             </div>
@@ -45,15 +45,25 @@
                                     <flux:radio.group wire:model="pickupMethod" label="{{ __('Pickup Method') }}">
                                         <flux:radio value="shop" wire:click="setPickupMethod('shop')" label="{{ __('Shop') }}" name="pickupMethod"/>
                                         <flux:radio value="terminal" wire:click="setPickupMethod('terminal')" label="{{ __('LP Express Terminal') }}" name="pickupMethod"/>
+                                        
+                                        <flux:radio value="omniva" wire:click="setPickupMethod('omniva')" label="{{ __('Omniva Terminal') }}" name="pickupMethod"/>
+                                       
                                     </flux:radio.group>
                                     <input type="hidden" name="pickupMethod" value="{{ $pickupMethod }}">
                                     @if($pickupMethod === 'terminal')
-                                    <flux:select placeholder="{{ __('Choose terminal...') }}" class="w-full" name="terminal_id" x-if="$wire.pickupMethod === 'terminal'" class="mt-4">
+                                    <flux:select placeholder="{{ __('Choose terminal...') }}" class="w-full" name="terminal_id" class="mt-4">
                                         @foreach ($this->getTerminals() as $terminal)
                                             <flux:select.option value="{{ $terminal->id }}">{{ $terminal->city }}: {{ $terminal->address }} {{ $terminal->name }}</flux:select.option> 
                                         @endforeach
                                     </flux:select>
                                     @endif
+                                    @if($pickupMethod === 'omniva') 
+                                        <flux:select placeholder="{{ __('Choose terminal...') }}" class="w-full" name="terminal_id" class="mt-4">
+                                            @foreach ($this->getPickupPoints() as $terminal)
+                                                <flux:select.option value="{{ $terminal['NAME'] }}">{{ $terminal['NAME'] }}: {{ $terminal['A5_NAME'] }}</flux:select.option> 
+                                            @endforeach
+                                        </flux:select>
+                                        @endif
                                 </div>
                                 
                                 <div class="flex flex-col space-y-4">

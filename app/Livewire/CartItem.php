@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\Terminal;
 use Livewire\Attributes\On;
+use Mijora\Omniva\Locations\PickupPoints;
 
 class CartItem extends Component
 {
@@ -14,6 +15,13 @@ class CartItem extends Component
     public $terminals = [];
     public $pickupMethod = 'shop';
 
+
+    public function getPickupPoints()
+    {
+        $pickupPoints = new PickupPoints();
+        $this->omnivaPickupPoints = $pickupPoints->getFilteredLocations('lt');
+        return $this->omnivaPickupPoints;
+    }
 
     public function mount()
     {
