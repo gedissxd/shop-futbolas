@@ -18,12 +18,12 @@
         
         <footer class="border-t border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800">
             
-            <div class="flex justify-between">
+          
                 <div class="flex items-center justify-center">
                     <img src="{{ asset('svg/logo no background fill.svg') }}" alt="logo" class="size-25">
                 </div>
           
-            </div>
+        
         </footer>
         
         @fluxScripts

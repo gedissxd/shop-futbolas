@@ -28,12 +28,33 @@
                 </div>
                 <div class="flex ml-auto gap-2">
                     <flux:button href="{{ route('dashboard.edit', $product->id) }}">{{ __('Edit') }}</flux:button>
-                    <form action="{{ route('dashboard.destroy', $product->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <flux:button type="submit" variant="danger" class="cursor-pointer">{{ __('Delete') }}</flux:button>
-                    </form>
-                 
+                    
+                    <flux:modal.trigger name="delete-product-{{ $product->id }}">
+                        <flux:button variant="danger">{{ __('Delete') }}</flux:button>
+                    </flux:modal.trigger>
+                    
+                    <flux:modal name="delete-product-{{ $product->id }}" class="min-w-[22rem]">
+                        <div class="space-y-6">
+                            <div>
+                                <flux:heading size="lg">{{ __('Delete product?') }}</flux:heading>
+                                <flux:text class="mt-2">
+                                    <p>{{ __("You're about to delete") }} "{{ $product->name }}".</p>
+                                    <p>{{ __('This action cannot be reversed.') }}</p>
+                                </flux:text>
+                            </div>
+                            <div class="flex gap-2">
+                                <flux:spacer />
+                                <flux:modal.close>
+                                    <flux:button variant="ghost">{{ __('Cancel') }}</flux:button>
+                                </flux:modal.close>
+                                <form action="{{ route('dashboard.destroy', $product->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <flux:button type="submit" variant="danger">{{ __('Delete product') }}</flux:button>
+                                </form>
+                            </div>
+                        </div>
+                    </flux:modal>
                 </div>
             </div>
          
