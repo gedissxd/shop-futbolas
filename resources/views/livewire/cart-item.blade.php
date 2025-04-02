@@ -18,14 +18,14 @@
                         </div>
                         <div class="flex items-center justify-between mt-3">
                             <div class="flex items-center border border-zinc-600 rounded-lg">
-                                <button class="p-2 cursor-pointer {{ $cart->quantity == 1 ? 'hidden' : '' }}" wire:click.throttle.300ms="decrement({{ $cart->id }})">
+                                <button class="p-2 cursor-pointer {{ $cart->quantity == 1 ? 'hidden' : '' }}" wire:click="decrement({{ $cart->id }})">
                                     <flux:icon.minus class="w-5 h-5 text-black dark:text-white" />
                                 </button>
                                 <button class="p-2 text-red-300 hover:text-red-900 {{ $cart->quantity > 1 ? 'hidden' : '' }}" wire:click="delete({{ $cart->id }})">
                                     <flux:icon.trash class="w-5 h-5"/>
                                 </button>
                                 <span class="px-4 font-medium text-black dark:text-white">{{ $cart->quantity }}</span>
-                                <button class="p-2 cursor-pointer" wire:click.throttle.300ms="increment({{ $cart->id }})">
+                                <button class="p-2 cursor-pointer" wire:click="increment({{ $cart->id }})">
                                     <flux:icon.plus class="w-5 h-5 text-black dark:text-white" />
                                 </button>
                             </div>
