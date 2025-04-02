@@ -18,10 +18,14 @@ class CheckoutController extends Controller
             $validated = $request->validate([
                 
                 'phone' => 'required|phone:LT',
-                'pickupMethod' => 'required|in:shop,terminal',
+                'pickupMethod' => 'required|in:shop,terminal,omniva',
             ]);
 
             if ($request->pickupMethod === 'terminal' && !$request->has('terminal_id')) {
+                return redirect()->route('cart')->with('error', 'Please select a terminal for pickup.');
+            }
+
+            if ($request->pickupMethod === 'omniva' && !$request->has('terminal_id')) {
                 return redirect()->route('cart')->with('error', 'Please select a terminal for pickup.');
             }
 
