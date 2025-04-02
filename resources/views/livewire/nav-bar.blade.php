@@ -15,7 +15,8 @@
         </flux:navbar>
 
         <flux:spacer />
-
+    
+        <x-locale-switcher />
         <!-- User Menu -->
         @auth
         <flux:dropdown position="top" align="end">
