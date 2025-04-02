@@ -57,7 +57,7 @@ public function store(Request $request)
         
         $product->update($validated);
         
-        return redirect()->route('dashboard')->with('message', 'Product updated successfully');
+        return view('dashboard.edit', compact('product'));
     }
 
     public function destroy($id)
