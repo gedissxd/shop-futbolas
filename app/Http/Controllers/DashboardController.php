@@ -24,11 +24,15 @@ public function store(Request $request)
         'name' => 'required|string|max:255',
         'price' => 'required|numeric',
         'description' => 'required|string',
-        'image' => 'required|string',
         'variant' => 'required|string',
         'stock' => 'required|integer|min:0',
+        'image' => 'required|image|max:2000',
     ]);
 
+    if ($request->image) {
+        $path =$request->image->store('images', 'public');
+        $validated = array_merge($validated, ['image' => $path]);
+    }
     
     
     $product = Product::create($validated);

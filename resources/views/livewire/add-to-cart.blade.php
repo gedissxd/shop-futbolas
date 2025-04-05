@@ -1,7 +1,7 @@
 <div>
     <div class="flex p-8">
         
-        <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-1/2 mr-16 rounded-lg shadow-md">
+        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-1/2 mr-16 rounded-lg shadow-md">
         <div class="w-1/2">
             <h1 class="text-2xl font-bold text-black dark:text-white">{{ $product->name }}</h1>
             <p class="text-black dark:text-white mt-5">{{ $product->description }}</p>

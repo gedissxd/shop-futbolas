@@ -35,9 +35,7 @@ class CartItem extends Component
     private function refreshCart()
     {
         $this->carts = Cart::where('user_id', auth()->id())
-            ->with(['product' => function($query) {
-                $query->select('id', 'name', 'price', 'stock', 'image');
-            }])
+            ->with('product')
             ->get();
     }
 
