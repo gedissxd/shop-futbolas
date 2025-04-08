@@ -69,7 +69,7 @@ class CheckoutController extends Controller
                     'user_id' => $user->id,
                     'phone' => $request->phone,
                     'pickup_method' => $request->pickupMethod,
-                    'terminal_id' => $request->pickupMethod === 'terminal' ? $request->terminal_id : null,
+                    'terminal_id' => $request->terminal_id ?? null,
                 ],
             ]);
             
@@ -80,23 +80,31 @@ class CheckoutController extends Controller
     {
         $user = auth()->user();
         
-
         $sessionId = $request->get('session_id');
         $checkout = $user->stripe()->checkout->sessions->retrieve($sessionId);
 
         $carts = Cart::where('user_id', $user->id)->with('product')->get();
-            $order = Order::create([
-                'user_id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'phone' => $checkout->metadata->phone ?? '',
-                'payment' => 'stripe',
-                'status' => 'paid',
-                'terminal' => $checkout->metadata->terminal_id ?? '',
-                'pickup_method' => $checkout->metadata->pickup_method ?? '',
-            ]);
-            
-            
+        
+        // Get terminal details if necessary
+        $terminal = null;
+        if ($checkout->metadata->pickup_method === 'terminal' && $checkout->metadata->terminal_id) {
+            $terminalData = Terminal::find($checkout->metadata->terminal_id);
+            if ($terminalData) {
+                $terminal = $terminalData->city . ': ' . $terminalData->address . ' ' . $terminalData->name;
+            }
+        }
+        
+        $order = Order::create([
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'phone' => $checkout->metadata->phone ?? '',
+            'payment' => 'stripe',
+            'status' => 'paid',
+            'terminal' => $terminal ?? $checkout->metadata->terminal_id ?? '',
+            'pickup_method' => $checkout->metadata->pickup_method ?? 'shop',
+        ]);
+        
             foreach ($carts as $cartItem) {
                 // Create order item
                 $orderItem = OrderItem::create([

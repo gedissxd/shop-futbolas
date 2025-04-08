@@ -7,7 +7,21 @@
             <h2 class="text-xl font-bold mb-4">{{ __('Order') }}: #{{ $order->id }} - {{ $order->created_at->format('Y-m-d H:i') }}</h2>
             <div class="mb-2">{{ __('Customer') }}: {{ $order->name }} ({{ $order->email }})</div>
             <div class="mb-2">{{ __('Phone') }}: {{ $order->phone }}</div>
-            <div class="mb-2">{{ __('Pickup') }}: {{ $order->terminal }}</div>
+            <div class="mb-2">
+                {{ __('Pickup Method') }}: 
+                @if($order->pickup_method == 'shop')
+                    {{ __('Shop') }}
+                @elseif($order->pickup_method == 'terminal')
+                    {{ __('LP Express Terminal') }}
+                @elseif($order->pickup_method == 'omniva')
+                    {{ __('Omniva Terminal') }}
+                @else
+                    {{ $order->pickup_method ?? __('Not specified') }}
+                @endif
+            </div>
+            @if ($order->pickup_method == 'terminal' || $order->pickup_method == 'omniva')
+                <div class="mb-2">{{ __('Pickup Location') }}: {{ $order->terminal ?? __('Not specified') }}</div>
+            @endif
             <div class="mb-2">{{ __('Status') }}: <span class="text-green-500">{{ $order->status }}</span></div>
             
             <div class="mt-4 pt-4 border-t border-zinc-700">
