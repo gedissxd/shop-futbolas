@@ -34,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 
     Route::middleware('can:admin-access')->group(function () {
         Route::get('/orders', [OrderController::class, 'index'])->name('dashboard.orders');
@@ -47,8 +48,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard/edit/{id}', [DashboardController::class, 'edit'])->name('dashboard.edit'); 
         Route::patch('/dashboard/update/{id}', [DashboardController::class, 'update'])->name('dashboard.update');
         Route::delete('/dashboard/update/{id}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
-        Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
-        
     });
 });
 require __DIR__.'/auth.php';

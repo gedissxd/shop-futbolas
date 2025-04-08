@@ -39,17 +39,16 @@
                     <div class="mt-6 border-t border-zinc-700 pt-6">
                         <form action="{{ route('checkout') }}" method="POST">
                             @csrf
-                           
+                            <input type="hidden" name="pickupMethod" value="{{ $pickupMethod }}">
                             <div class="space-y-4">
                                 <div>
-                                    <flux:radio.group wire:model="pickupMethod" label="{{ __('Pickup Method') }}">
-                                        <flux:radio value="shop" wire:click="setPickupMethod('shop')" label="{{ __('Shop') }}" name="pickupMethod"/>
+                                    <flux:radio.group label="{{ __('Pickup Method') }}">
+                                        <flux:radio value="shop" wire:click="setPickupMethod('shop')" label="{{ __('Shop') }}" name="pickupMethod" checked />
                                         <flux:radio value="terminal" wire:click="setPickupMethod('terminal')" label="{{ __('LP Express Terminal') }}" name="pickupMethod"/>
                                         
                                         <flux:radio value="omniva" wire:click="setPickupMethod('omniva')" label="{{ __('Omniva Terminal') }}" name="pickupMethod"/>
                                        
                                     </flux:radio.group>
-                                    <input type="hidden" name="pickupMethod" value="{{ $pickupMethod }}">
                                     @if($pickupMethod === 'terminal')
                                     <flux:select placeholder="{{ __('Choose terminal...') }}" class="w-full" name="terminal_id" class="mt-4">
                                         @foreach ($this->getTerminals() as $terminal)

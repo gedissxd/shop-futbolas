@@ -85,11 +85,6 @@ class CheckoutController extends Controller
         $checkout = $user->stripe()->checkout->sessions->retrieve($sessionId);
 
         $carts = Cart::where('user_id', $user->id)->with('product')->get();
-
-        // Start a database transaction to ensure stock reduction and order creation happen together
-        DB::beginTransaction();
-        
-        try {
             $order = Order::create([
                 'user_id' => $user->id,
                 'name' => $user->name,
@@ -120,13 +115,6 @@ class CheckoutController extends Controller
             }
             
             Cart::where('user_id', $user->id)->delete();
-            
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            // Handle the exception - log it and show an error message
-            return redirect()->route('cart')->with('error', 'An error occurred while processing your order. Please try again.');
-        }
         
         return view('checkout.success', compact('order'));
     }
