@@ -15,8 +15,7 @@
         </flux:navbar>
 
         <flux:spacer />
-    
-        <x-locale-switcher />
+        <livewire:locale-switch />
         <!-- User Menu -->
         @auth
         <flux:dropdown position="top" align="end">

@@ -19,8 +19,7 @@ class CartItem extends Component
     public function getPickupPoints()
     {
         $pickupPoints = new PickupPoints();
-        $this->omnivaPickupPoints = $pickupPoints->getFilteredLocations('lt');
-        return $this->omnivaPickupPoints;
+        return $pickupPoints->getFilteredLocations('lt');
     }
 
     public function mount()
@@ -103,7 +102,6 @@ class CartItem extends Component
     {
         $this->pickupMethod = $method;
         session(['pickupMethod' => $method]);
-        return $this->pickupMethod;
     }
 
     public function render()
