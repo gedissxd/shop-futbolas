@@ -1,8 +1,8 @@
 <x-layout title="Home">
     <div class="relative">
          <video src="{{ asset('video/kick.mp4') }}" autoplay muted loop class="w-full h-[700px] object-cover"></video>
-        <div class="absolute inset-0 flex items-center justify-center">
-            <flux:button variant="primary" class="text-white" href="{{ route('products') }}" wire:navigate >{{ __('Start shopping') }}</flux:button>
+        <div class="absolute inset-0 flex items-center justify-center text-white">
+            <flux:button class="text-white" href="{{ route('products') }}" wire:navigate >{{ __('Start shopping') }}</flux:button>
         </div>
     </div>
     <h1 class="text-center text-2xl font-bold mt-10">{{ __('Featured products') }}</h1>

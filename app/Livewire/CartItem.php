@@ -39,42 +39,40 @@ class CartItem extends Component
             ->get();
     }
 
-    #[On('cartUpdated')]
-    public function refreshCartData()
-    {
-        $this->refreshCart();
-    }
 
     public function increment($id)
     {
         $cart = $this->carts->firstWhere('id', $id);
-        
+
         if (!$cart) {
             return;
         }
-        
-        if ($this->carts->sum('quantity') >= $this->carts->sum('product.stock')) {  
-            session()->flash('error', __('You have reached the maximum :amount limit', ['amount' => $this->carts->sum('product.stock')]));
+
+        if ($cart->quantity + 1 > $cart->product->stock) {
+            session()->flash('error', __('Cannot add more of :product, only :stock available', ['product' => $cart->product->name, 'stock' => $cart->product->stock]));
             return;
         }
-        
-        $cart->increment('quantity');
-        $this->dispatch('cartUpdated');
+
+        $cart->quantity++;
+        $cart->save();
+
+        $this->dispatch('cartUpdated'); 
     }
-    
+
     public function decrement($id)
     {
         $cart = $this->carts->firstWhere('id', $id);
-        
+
         if (!$cart) {
             return;
         }
-        
+
         if ($cart->quantity > 1) {
-            $cart->decrement('quantity');
+            $cart->quantity--;
+            $cart->save();
         }
         
-        $this->dispatch('cartUpdated');
+        $this->dispatch('cartUpdated'); 
     }
 
     public function getCartTotal()
