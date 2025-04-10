@@ -25,10 +25,10 @@ public function submit()
 
     <flux:menu class="mt-8">
         <flux:radio.group wire:model="language" class="mt-2">
-            <flux:radio value="en" label="English" checked />
-            <flux:radio value="lt" label="Lithuanian" />
+            <flux:radio value="en" label="{{ __('English') }}" checked />
+            <flux:radio value="lt" label="{{ __('Lithuanian') }}" />
         </flux:radio.group>
-        <flux:button class="mt-4" variant="primary" wire:click="submit" >Save</flux:button>
+        <flux:button class="mt-4" variant="primary" wire:click="submit" >{{ __('Save') }}</flux:button>
     </flux:menu>
 </flux:dropdown>
 </div>

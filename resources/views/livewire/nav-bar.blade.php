@@ -15,8 +15,13 @@
         </flux:navbar>
 
         <flux:spacer />
+        <div class="mr-2">
         <flux:button x-data x-on:click="$flux.dark = ! $flux.dark" icon="moon" variant="subtle" aria-label="Toggle dark mode" />
-        <livewire:locale-switch />
+        </div>
+        <flux:separator vertical class="h-[50px] m-auto"/>
+        <div class="ml-2">
+        <livewire:locale-switch/>
+        </div>
         <!-- User Menu -->
         @auth
         <flux:dropdown position="top" align="end">

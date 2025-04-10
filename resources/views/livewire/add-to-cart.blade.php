@@ -13,18 +13,17 @@
             
             @if ($message)
             <div x-data="{ show: true }" 
-                 x-init="setTimeout(() => { show = false; $wire.set('message', null); }, 1000)" 
-                 x-show="show"
-                 class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" 
-                 role="alert">
-                {{ $message }}
+            x-init="setTimeout(() => { show = false; $wire.set('message', null); }, 1000)" 
+            x-show="show">
+            <flux:callout variant="success" icon="check-circle" heading="{{ $message }}" class="mt-5"/>
             </div>
+            
+
             @endif
 
             @error('size') 
-                <div class="p-4 mb-4 mt-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
-                    {{ $message }}
-                </div>
+            <flux:callout variant="danger" icon="x-circle" heading="{{ $message }}" class="mt-5" />
+
             @enderror
           
             

@@ -68,7 +68,7 @@
                                 <div class="flex flex-col space-y-4">
                                     
                                 </div>
-                                <flux:input placeholder="+370" label="{{ __('Phone number') }}" required class="w-full" name="phone" value="{{ old('phone') }}" />
+                                <flux:input placeholder="+370"  label="{{ __('Phone number') }}" required class="w-full" name="phone" value="{{ old('phone') }}" />
                             </div>
                         </div>
                         
@@ -82,7 +82,7 @@
     @else
         <div class="text-center py-8 bg-zinc-800 rounded-lg border border-yellow-200">
             <p class="text-white mb-4">{{ __('Your cart is empty') }}</p>
-            <a href="{{ route('products') }}" class="text-blue-500 hover:underline">{{ __('Continue Shopping') }}</a>
+            <a href="{{ route('products') }}" class="text-blue-500 hover:underline"{{ __('Continue Shopping') }}</a>
         </div>
     @endif
 </div>

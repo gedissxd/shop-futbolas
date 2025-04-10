@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 return [
-    'phone' => 'Turi būti teisingas Lietuvos telefono numeris.',
+    'phone' => 'Turi būti teisingas Lietuviškas telefono numeris.',
     'accepted'               => 'Laukas :attribute turi būti priimtas.',
     'accepted_if'            => 'Laukas :attribute turi būti priimtas kai :other yra :value.',
     'active_url'             => 'Laukas :attribute nėra galiojantis internetinis adresas.',
