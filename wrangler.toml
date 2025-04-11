@@ -1,9 +1,13 @@
+name = "futbolas"
+pages_build_output_dir = "public"
+
+[vars]
+NODE_VERSION = "18"
+PHP_VERSION = "8.2"
+
 [build]
 command = "curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && composer install --optimize-autoloader --no-dev && npm install && npm run build"
 publish = "public"
-[build.environment]
-NODE_VERSION = "18"
-PHP_VERSION = "8.2"
 
 [site]
 bucket = "./public" 
