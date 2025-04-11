@@ -15,14 +15,14 @@
             <div x-data="{ show: true }" 
             x-init="setTimeout(() => { show = false; $wire.set('message', null); }, 1000)" 
             x-show="show">
-            <flux:callout variant="success" icon="check-circle" heading="{{ $message }}" class="mt-5"/>
+            <flux:callout variant="success" icon="check-circle" heading="{{ __($message) }}" class="mt-5"/>
             </div>
             
 
             @endif
 
             @error('size') 
-            <flux:callout variant="danger" icon="x-circle" heading="{{ $message }}" class="mt-5" />
+            <flux:callout variant="danger" icon="x-circle" heading="{{ __($message) }}" class="mt-5" />
 
             @enderror
           
