@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Image;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -26,16 +28,25 @@ public function store(Request $request)
         'description' => 'required|string',
         'variant' => 'required|string',
         'stock' => 'required|integer|min:0',
-        'image' => 'required|image|max:2000',
     ]);
 
-    if ($request->image) {
-        $path =$request->image->store('images', 'public');
-        $validated = array_merge($validated, ['image' => $path]);
-    }
-    
-    
+    $request->validate([
+        'image' => 'required|array',
+        'image.*' => 'image|max:2000',
+    ]);
+
     $product = Product::create($validated);
+
+    if ($request->hasFile('image')) {
+        foreach ($request->file('image') as $imageFile) {
+            $path = $imageFile->store('images', 'public');
+            
+            Image::create([
+                'product_id' => $product->id,
+                'image' => $path,
+            ]);
+        }
+    }
     
     return redirect()->route('dashboard')->with('message', 'Product created successfully');
 }
@@ -54,7 +65,6 @@ public function store(Request $request)
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
             'description' => 'required|string',
-            'image' => 'required|string',
             'variant' => 'required|string',
             'stock' => 'required|integer|min:0',
         ]);

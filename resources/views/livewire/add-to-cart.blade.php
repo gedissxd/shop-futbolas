@@ -1,15 +1,26 @@
 <div>
-    <div class="flex p-8">
+    <div class="flex p-8 gap-8 max-w-7xl mx-auto">
         
-        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-1/2 mr-16 rounded-lg shadow-md">
+        <div class="w-1/2">
+                <img src="{{ asset($product->images->first()->image) }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-md mb-4">
+                @if($product->images->count() > 1)
+                    <div class="flex gap-2">
+                @foreach($product->images as $image)
+                    <img src="{{ asset($image->image) }}" alt="{{ $product->name }}" class="size-20 cursor-pointer rounded border hover:border-primary-500">
+                @endforeach
+                @endif
+            </div>
+        </div>
         <div class="w-1/2">
             <h1 class="text-2xl font-bold text-black dark:text-white">{{ $product->name }}</h1>
-            <p class="text-black dark:text-white mt-5">{{ $product->description }}</p>
-            <p class="text-black dark:text-white">{{ $product->price }}€</p>
-            
             <div class="mt-2">
                 {{ $product->stock > 0 ? __('In stock: ') . $product->stock : __('Out of stock') }}
             </div>
+            <p class="text-black dark:text-white">{{ $product->price }}€</p>
+            <p class="text-black dark:text-white mt-5">{{ $product->description }}</p>
+            
+            
+            
             
             @if ($message)
             <div x-data="{ show: true }" 
@@ -25,10 +36,8 @@
             <flux:callout variant="danger" icon="x-circle" heading="{{ __($message) }}" class="mt-5" />
 
             @enderror
-          
-            
-           
-            <flux:radio.group wire:model="size" variant="segmented" class="mt-5 shadow-md">
+          <div class="flex flex-col gap-4">
+            <flux:radio.group wire:model="size" variant="segmented" class="mt-5 shadow-md w-fit">
                 @foreach (explode(',', $product->variant) as $variant)
                     <flux:radio label="{{ $variant }}" value="{{ $variant }}" />
                 @endforeach
@@ -37,6 +46,7 @@
             <div class="mt-5">
                 <flux:button variant="primary" wire:click="addToCart" :disabled="$product->stock <= 0" >{{ __('Add to cart') }}</flux:button>
             </div>
+          </div>
         </div>
     </div>
 </div>

@@ -1,7 +1,9 @@
 <a href="{{ route('products.show', $product->id) }}" wire:navigate.hover>
     <div class="bg-white  w-full rounded-lg">
        <div class="w-full h-48 overflow-hidden h-[360px]">
-           <img src="{{ asset($product->image)  }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
+        @if($product->images->first())
+           <img src="{{ asset($product->images->first()->image) }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
+        @endif
        </div>
        
        <div class="p-4  flex flex-col">

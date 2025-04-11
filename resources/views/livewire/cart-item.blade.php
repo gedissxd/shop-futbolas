@@ -69,6 +69,7 @@
                                     
                                 </div>
                                 <flux:input placeholder="+370"  label="{{ __('Phone number') }}" required class="w-full" name="phone" value="{{ old('phone') }}" />
+                                <flux:input label="{{ __('Discount code') }}" class="w-full" name="discount" />
                             </div>
                         </div>
                         

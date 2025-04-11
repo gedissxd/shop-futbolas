@@ -16,7 +16,9 @@
         @foreach ($products as $product)
             <div class="bg-blue-300 p-4 rounded-lg flex gap-4">
                 <div>
-                <img src="{{ $product->image }}" alt="{{ $product->name }}" class="size-15 rounded-lg">
+                    @if($product->images->isNotEmpty())
+                <img src="{{ asset($product->images->first()->image) }}" alt="{{ $product->name }}" class="w-full rounded-lg">
+                @endif
                 </div>
                 <div>
                 <h2 class="text-lg font-bold">{{ $product->name }}</h2>

@@ -20,7 +20,6 @@ class ProductFactory extends Factory
             'name' => $this->faker->word,
             'description' => $this->faker->sentence,
             'price' => $this->faker->randomFloat(2, 1, 100),
-            'image' => "https://placehold.co/600x400",
             'variant' => "XL/RED,M/BLUE",
             'stock' => $this->faker->numberBetween(1, 100),
         ];
