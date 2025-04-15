@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('terminal')->nullable();
             $table->string('pickup_method')->nullable();
+            $table->boolean('sent')->default(false);
             $table->string('payment');
             $table->string('status');
             $table->timestamps();
