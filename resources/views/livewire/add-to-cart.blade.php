@@ -1,12 +1,14 @@
 <div>
     <div class="flex p-8 gap-8 max-w-7xl mx-auto">
-        
+
         <div class="w-1/2">
-                <img src="{{ asset($product->images->first()->image) }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-md mb-4">
+                <img src="{{ asset($currentImage) }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-md mb-4">
                 @if($product->images->count() > 1)
                     <div class="flex gap-2">
                 @foreach($product->images as $image)
-                    <img src="{{ asset($image->image) }}" alt="{{ $product->name }}" class="size-20 cursor-pointer rounded border hover:border-primary-500">
+                    <img src="{{ asset($image->image) }}" alt="{{ $product->name }}"
+                         class="size-20 cursor-pointer rounded border hover:border-primary-500 {{ $currentImage == $image->image ? 'border-primary-500 border-2' : '' }}"
+                         wire:click="changeImage('{{ $image->image }}')">
                 @endforeach
                 @endif
             </div>
@@ -18,21 +20,21 @@
             </div>
             <p class="text-black dark:text-white">{{ $product->price }}€</p>
             <p class="text-black dark:text-white mt-5">{{ $product->description }}</p>
-            
-            
-            
-            
+
+
+
+
             @if ($message)
-            <div x-data="{ show: true }" 
-            x-init="setTimeout(() => { show = false; $wire.set('message', null); }, 1000)" 
+            <div x-data="{ show: true }"
+            x-init="setTimeout(() => { show = false; $wire.set('message', null); }, 1000)"
             x-show="show">
             <flux:callout variant="success" icon="check-circle" heading="{{ __($message) }}" class="mt-5"/>
             </div>
-            
+
 
             @endif
 
-            @error('size') 
+            @error('size')
             <flux:callout variant="danger" icon="x-circle" heading="{{ __($message) }}" class="mt-5" />
 
             @enderror
@@ -42,7 +44,7 @@
                     <flux:radio label="{{ $variant }}" value="{{ $variant }}" />
                 @endforeach
             </flux:radio.group>
-            
+
             <div class="mt-5">
                 <flux:button variant="primary" wire:click="addToCart" :disabled="$product->stock <= 0" >{{ __('Add to cart') }}</flux:button>
             </div>

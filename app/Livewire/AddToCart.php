@@ -13,10 +13,12 @@ class AddToCart extends Component
     public $size = '';
     public $quantity = 1;
     public $message = null;
+    public $currentImage = null;
 
     public function mount($product)
     {
         $this->product = $product;
+        $this->currentImage = $product->images->first()->image ?? null;
     }
 
     public function addToCart()
@@ -30,14 +32,14 @@ class AddToCart extends Component
             $this->message = 'This product is out of stock';
             return;
         }
-    
+
         $this->validate([
             'size' => 'required',
         ], [
             'size.required' => 'Please select a size before adding to cart',
         ]);
 
-       
+
 
         $existingCartItem = Cart::where('user_id', Auth::id())
             ->where('product_id', $this->product->id)
@@ -49,7 +51,7 @@ class AddToCart extends Component
             $totalQuantity += $existingCartItem->quantity;
         }
 
-        
+
         if ($totalQuantity > $this->product->stock) {
             $this->message = "Not enough stock available. Only {$this->product->stock} items left.";
             return;
@@ -67,9 +69,14 @@ class AddToCart extends Component
         }
 
         $this->product = Product::find($this->product->id);
-        
+
         $this->dispatch('cartUpdated');
         $this->message = 'Item added to cart';
+    }
+
+    public function changeImage($imagePath)
+    {
+        $this->currentImage = $imagePath;
     }
 
     public function render()
