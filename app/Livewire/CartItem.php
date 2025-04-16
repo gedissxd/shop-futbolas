@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\Terminal;
 use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Cache;
 use Mijora\Omniva\Locations\PickupPoints;
 
 class CartItem extends Component
@@ -24,7 +25,7 @@ class CartItem extends Component
 
     public function mount()
     {
-        $userId = auth()->id();
+  
         $this->refreshCart();
 
         $this->pickupMethod = request()->input('pickupMethod', 'shop');
@@ -33,9 +34,7 @@ class CartItem extends Component
 
     private function refreshCart()
     {
-        $this->carts = Cart::where('user_id', auth()->id())
-            ->with('product')
-            ->get();
+        $this->carts = Cart::where('user_id', auth()->id())->get();
     }
 
 
@@ -82,7 +81,9 @@ class CartItem extends Component
     }
     public function getTerminals()
     {
-        return Terminal::orderBy('city')->get(['id', 'city', 'name', 'address']);
+        return Cache::remember('terminals', 60, function () {
+            return Terminal::orderBy('city')->get(['id', 'city', 'name', 'address']);
+        });
 
     }
 
