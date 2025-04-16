@@ -26,7 +26,7 @@ class CartItem extends Component
     {
         $userId = auth()->id();
         $this->refreshCart();
-     
+
         $this->pickupMethod = request()->input('pickupMethod', 'shop');
 
     }
@@ -55,7 +55,7 @@ class CartItem extends Component
         $cart->quantity++;
         $cart->save();
 
-        $this->dispatch('cartUpdated'); 
+        $this->dispatch('cartUpdated');
     }
 
     public function decrement($id)
@@ -70,8 +70,8 @@ class CartItem extends Component
             $cart->quantity--;
             $cart->save();
         }
-        
-        $this->dispatch('cartUpdated'); 
+
+        $this->dispatch('cartUpdated');
     }
 
     public function getCartTotal()
@@ -89,12 +89,13 @@ class CartItem extends Component
     public function delete($id)
     {
         $cart = $this->carts->firstWhere('id', $id);
-        
+
         if (!$cart) {
             return;
         }
-        
+
         $cart->delete();
+        $this->refreshCart();
         $this->dispatch('cartUpdated');
     }
 

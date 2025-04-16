@@ -9,7 +9,7 @@
                     @endif
                     <div class="border-b border-zinc-700 pb-4 mb-4 last:border-0 last:mb-0 last:pb-0">
                         <div class="flex items-center gap-3">
-                            <img src="{{ $cart->product->image }}" alt="{{ $cart->product->name }}" class="size-16 sm:size-20 md:size-24 object-cover rounded">
+                            <img src="{{ $cart->product->images->first()->image }}" alt="{{ $cart->product->name }}" class="size-16 sm:size-20 md:size-24 object-cover rounded">
                             <div class="flex-1">
                                 <h3 class="font-medium text-black dark:text-white">{{ $cart->product->name }}</h3>
                                 <div class="text-sm text-zinc-400">{{ __('Size') }}: {{ $cart->size }}</div>
