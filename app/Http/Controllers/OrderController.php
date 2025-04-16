@@ -16,11 +16,4 @@ class OrderController extends Controller
         return view('dashboard.orders', compact( 'orders'));
     }
 
-    public function status ($id)
-    {
-        $order = Order::findOrFail($id);
-        $order->status = 'completed';
-        $order->save();
-        return redirect()->back();
-    }
 }
