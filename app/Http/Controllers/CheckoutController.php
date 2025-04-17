@@ -9,6 +9,9 @@ use App\Models\OrderItem;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderConfirmed;
+
 class CheckoutController extends Controller
 {
     
@@ -61,7 +64,7 @@ class CheckoutController extends Controller
             }
             
             
-            $checkout = $user->checkout($lineItems, 
+            $checkout = $user->allowPromotionCodes()->checkout($lineItems, 
             [
                 'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}',
                 'cancel_url' => route('cart'),
@@ -81,7 +84,19 @@ class CheckoutController extends Controller
         $user = auth()->user();
         
         $sessionId = $request->get('session_id');
+        
+        if (!$sessionId) {
+            return redirect()->route('cart')->with('error', 'Invalid checkout session.');
+        }
+
         $checkout = $user->stripe()->checkout->sessions->retrieve($sessionId);
+        $paymentIntentId = $checkout->payment_intent;
+
+        // Check if an order with this payment intent already exists
+        $existingOrder = Order::where('payment_intent_id', $paymentIntentId)->first();
+        if ($existingOrder) {
+            return view('checkout.success', compact('existingOrder'));
+        }
 
         $carts = Cart::where('user_id', $user->id)->with('product')->get();
         
@@ -103,27 +118,29 @@ class CheckoutController extends Controller
             'status' => 'paid',
             'terminal' => $terminal ?? $checkout->metadata->terminal_id ?? '',
             'pickup_method' => $checkout->metadata->pickup_method ?? 'shop',
+            'payment_intent_id' => $paymentIntentId,
         ]);
-        
-            foreach ($carts as $cartItem) {
-                // Create order item
-                $orderItem = OrderItem::create([
-                    'order_id' => $order->id,
-                    'product_name' => $cartItem->product->name,
-                    'size' => $cartItem->size,
-                    'quantity' => $cartItem->quantity,
-                ]);
-                
-                // Reduce stock
-                $product = Product::find($cartItem->product->id);
-                if ($product) {
-                    $product->stock = max(0, $product->stock - $cartItem->quantity);
-                    $product->save();
-                }
-            }
+
+        foreach ($carts as $cartItem) {
+            // Create order item
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_name' => $cartItem->product->name,
+                'size' => $cartItem->size,
+                'quantity' => $cartItem->quantity,
+            ]);
             
-            Cart::where('user_id', $user->id)->delete();
+            // Reduce stock
+            $product = Product::find($cartItem->product->id);
+            if ($product) {
+                $product->stock = max(0, $product->stock - $cartItem->quantity);
+                $product->save();
+            }
+        }
         
+        Cart::where('user_id', $user->id)->delete();
+        Mail::to($user->email)->queue(new OrderConfirmed($order));
+
         return view('checkout.success', compact('order'));
     }
 }
