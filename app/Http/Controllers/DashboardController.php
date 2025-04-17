@@ -39,7 +39,7 @@ public function store(Request $request)
 
     if ($request->hasFile('image')) {
         foreach ($request->file('image') as $imageFile) {
-            $path = $imageFile->store('images', 'public');
+            $path = Storage::disk('s3')->put('images', $imageFile);
             
             Image::create([
                 'product_id' => $product->id,
