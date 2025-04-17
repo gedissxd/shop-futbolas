@@ -17,9 +17,10 @@ class OrderConfirmed extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(
-        public Order $order
-    ) {}
+    public function __construct(public Order $order) 
+    {
+
+    }
 
     /**
      * Get the message envelope.
@@ -38,9 +39,6 @@ class OrderConfirmed extends Mailable
     {
         return new Content(
             markdown: 'email.order-confirmed',
-            with: [
-                'order' => $this->order,
-            ],
         );
     }
 
