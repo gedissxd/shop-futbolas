@@ -10,12 +10,14 @@ use Livewire\Component;
 class AddToCart extends Component
 {
     public $product;
+    #[Validate('required')]
     public $size = '';
+    #[Validate('required')]
     public $quantity = 1;
     public $message = null;
     public $currentImage = null;
 
-    public function mount($product)
+    public function mount(Product $product)
     {
         $this->product = $product;
         $this->currentImage = $product->images->first()->image ?? null;

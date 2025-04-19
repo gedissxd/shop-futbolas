@@ -11,7 +11,7 @@
         <flux:navbar class="-mb-px max-lg:hidden">
             <flux:navbar.item icon="home" :href="route('home')" wire:navigate>{{ __('Home') }}</flux:navbar.item>
             <flux:navbar.item icon="shopping-cart" :href="route('products')" wire:navigate>{{ __('Shop') }}</flux:navbar.item>
-            <flux:navbar.item icon="shopping-bag" :href="route('cart')" >{{ __('Cart') }} ({{ $cartCount }})</flux:navbar.item>
+            <flux:navbar.item icon="shopping-bag" :href="route('cart')" >{{ __('Cart') }} ({{ $this->cartCount }})</flux:navbar.item>
         </flux:navbar>
 
         <flux:spacer />
@@ -86,7 +86,7 @@
             <flux:navlist.group :heading="__('Navigation')">
                 <flux:navlist.item icon="home" :href="route('home')" wire:navigate>{{ __('Home') }}</flux:navlist.item>
                 <flux:navlist.item icon="shopping-cart" :href="route('products')" wire:navigate>{{ __('Shop') }}</flux:navlist.item>
-                <flux:navlist.item icon="shopping-bag" :href="route('cart')" wire:navigate>{{ __('Cart') }}</flux:navlist.item>
+                <flux:navlist.item icon="shopping-bag" :href="route('cart')" wire:navigate>{{ __('Cart') }} ({{ $this->cartCount }})</flux:navlist.item>
             </flux:navlist.group>
         </flux:navlist>
     </flux:sidebar>

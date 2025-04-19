@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Product;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 
 class ProductList extends Component
@@ -22,7 +23,7 @@ class ProductList extends Component
         $this->sortBy = $sortBy;
         $this->loadProducts();
     }
-
+    #[Computed]
     private function loadProducts()
     {
         if ($this->sortBy === 'latest') {
