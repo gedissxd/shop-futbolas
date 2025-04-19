@@ -3,14 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\ProductController;
-use App\Models\Product;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
-use App\Models\Cart;
 use App\Http\Controllers\DashboardController;
-use Illuminate\Support\Facades\Gate;
-use App\Http\Controllers\DashboardUsersController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', [ProductController::class, 'showfour'])->name('home');
@@ -24,7 +19,7 @@ Route::get('/cart', function () {
 
 
 
-    
+
 Route::middleware(['auth'])->group(function () {
 
     //settings
@@ -45,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/dashboard/create', [DashboardController::class, 'create'])->name('dashboard.create');
         Route::post('/dashboard/create', [DashboardController::class, 'store'])->name('dashboard.store');
-        Route::get('/dashboard/edit/{id}', [DashboardController::class, 'edit'])->name('dashboard.edit'); 
+        Route::get('/dashboard/edit/{id}', [DashboardController::class, 'edit'])->name('dashboard.edit');
         Route::patch('/dashboard/update/{id}', [DashboardController::class, 'update'])->name('dashboard.update');
         Route::delete('/dashboard/update/{id}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
     });
