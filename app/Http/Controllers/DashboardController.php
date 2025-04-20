@@ -39,13 +39,18 @@ public function store(Request $request)
 
     if ($request->hasFile('image')) {
         foreach ($request->file('image') as $imageFile) {
-            //upload to s3
-            $path = $imageFile->store('images', 's3');
+            try {
+
+                $path = $imageFile->storePublicly('images', ['disk' => 's3']);
+                
+                Image::create([
+                    'product_id' => $product->id,
+                    'image' => $path,
+                ]);
+            } catch (\Exception $e) {
+                \Log::error('S3 upload error: ' . $e->getMessage());
             
-            Image::create([
-                'product_id' => $product->id,
-                'image' => $path,
-            ]);
+            }
         }
     }
     
