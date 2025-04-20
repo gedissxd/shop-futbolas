@@ -13,15 +13,17 @@
     </form>
 
     <h1>{{ __('Preview') }}</h1>
-   
+
         <div class="bg-white  rounded-lg w-1/4">
            <div class="w-full h-48 overflow-hidden h-[360px]">
+               @empty(asset($product->images))
                <img src="{{ asset($product->images->first()->image) }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
+               @endempty
            </div>
-           
+
            <div class="p-4  flex flex-col">
                <h2 class="text-lg font-medium text-gray-800 mb-1">{{ $product->name }}</h2>
-               
+
                <div class="mt-auto">
                    <p class="text-lg font-bold text-gray-900">${{ $product->price }}</p>
                </div>

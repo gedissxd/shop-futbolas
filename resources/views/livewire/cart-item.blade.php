@@ -3,10 +3,17 @@
         <div>
             <div class="col-span-1 dark:bg-zinc-800 p-3 sm:p-4 rounded-lg border shadow-md border-zinc-200 dark:border-yellow-200">
                 <div class="space-y-4">
-                    @foreach ($carts as $cart)
                     @if  (session()->has('error'))
-                        <div class="text-red-500">{{ session('error') }}</div>
+                        <div x-data="{ show: true }"
+                             x-init="setTimeout(() => { show = false; }, 3000)"
+                             x-show="show">
+                            <flux:callout variant="danger" icon="x-circle" heading="{{ session('error') }}" />
+                        </div>
+
+
                     @endif
+                    @foreach ($carts as $cart)
+
                     <div class="border-b border-zinc-700 pb-4 mb-4 last:border-0 last:mb-0 last:pb-0">
                         <div class="flex items-center gap-3">
                             <img src="{{ $cart->product->images->first()->image }}" alt="{{ $cart->product->name }}" class="size-16 sm:size-20 md:size-24 object-cover rounded">
@@ -33,7 +40,7 @@
                     </div>
                     @endforeach
                 </div>
-                
+
                 <div class="mt-4 border-t border-zinc-700 pt-4">
                     <h3 class="text-right font-medium text-lg">{{ __('Total') }}: {{ $this->getCartTotal() }}€</h3>
                     <div class="mt-6 border-t border-zinc-700 pt-6">
@@ -45,34 +52,34 @@
                                     <flux:radio.group label="{{ __('Pickup Method') }}">
                                         <flux:radio value="shop" wire:click="setPickupMethod('shop')" label="{{ __('Shop') }}" name="pickupMethod" checked />
                                         <flux:radio value="terminal" wire:click="setPickupMethod('terminal')" label="{{ __('LP Express Terminal') }}" name="pickupMethod"/>
-                                        
+
                                         <flux:radio value="omniva" wire:click="setPickupMethod('omniva')" label="{{ __('Omniva Terminal') }}" name="pickupMethod"/>
-                                       
+
                                     </flux:radio.group>
                                     @if($pickupMethod === 'terminal')
                                     <flux:select placeholder="{{ __('Choose terminal...') }}" class="w-full" name="terminal_id" class="mt-4">
                                         @foreach ($this->getTerminals() as $terminal)
-                                            <flux:select.option value="{{ $terminal->id }}">{{ $terminal->city }}: {{ $terminal->address }} {{ $terminal->name }}</flux:select.option> 
+                                            <flux:select.option value="{{ $terminal->id }}">{{ $terminal->city }}: {{ $terminal->address }} {{ $terminal->name }}</flux:select.option>
                                         @endforeach
                                     </flux:select>
                                     @endif
-                                    @if($pickupMethod === 'omniva') 
+                                    @if($pickupMethod === 'omniva')
                                         <flux:select placeholder="{{ __('Choose terminal...') }}" class="w-full" name="terminal_id" class="mt-4">
                                             @foreach ($this->getPickupPoints() as $terminal)
-                                                <flux:select.option value="{{ $terminal['NAME'] }}">{{ $terminal['NAME'] }}: {{ $terminal['A5_NAME'] }}</flux:select.option> 
+                                                <flux:select.option value="{{ $terminal['NAME'] }}">{{ $terminal['NAME'] }}: {{ $terminal['A5_NAME'] }}</flux:select.option>
                                             @endforeach
                                         </flux:select>
                                         @endif
                                 </div>
-                                
+
                                 <div class="flex flex-col space-y-4">
-                                    
+
                                 </div>
                                 <flux:input placeholder="+370"  label="{{ __('Phone number') }}" required class="w-full" name="phone" value="{{ old('phone') }}" />
-                               
+
                             </div>
                         </div>
-                        
+
                         <div class="flex justify-end mt-6">
                             <flux:button type="submit" variant="primary" class="px-6 py-2">{{ __('Checkout') }}</flux:button>
                         </form>

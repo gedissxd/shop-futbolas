@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class AddToCart extends Component
@@ -79,6 +80,15 @@ class AddToCart extends Component
     public function changeImage($imagePath)
     {
         $this->currentImage = $imagePath;
+    }
+
+    public function getCurrentImageUrl()
+    {
+        if (!$this->currentImage) {
+            return '';
+        }
+        
+        return Storage::disk('s3')->url($this->currentImage);
     }
 
     public function render()

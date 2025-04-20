@@ -2,11 +2,11 @@
     <div class="flex p-8 gap-8 max-w-7xl mx-auto">
 
         <div class="w-1/2">
-                <img src="{{ asset($currentImage) }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-md mb-4">
+                <img src="{{ $this->getCurrentImageUrl() }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-md mb-4">
                 @if($product->images->count() > 1)
                     <div class="flex gap-2">
                 @foreach($product->images as $image)
-                    <img src="{{ asset($image->image) }}" alt="{{ $product->name }}"
+                    <img src="{{ $image->getUrl() }}" alt="{{ $product->name }}"
                          class="size-20 cursor-pointer rounded border hover:border-primary-500 {{ $currentImage == $image->image ? 'border-primary-500 border-2' : '' }}"
                          wire:click="changeImage('{{ $image->image }}')">
                 @endforeach
