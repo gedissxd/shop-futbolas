@@ -40,8 +40,8 @@ public function store(Request $request)
     if ($request->hasFile('image')) {
         foreach ($request->file('image') as $imageFile) {
             try {
-
-                $path = $imageFile->storePublicly('images', ['disk' => 's3']);
+                // For public buckets in Laravel Cloud
+                $path = $imageFile->store('images', 's3');
                 
                 Image::create([
                     'product_id' => $product->id,
@@ -49,7 +49,7 @@ public function store(Request $request)
                 ]);
             } catch (\Exception $e) {
                 \Log::error('S3 upload error: ' . $e->getMessage());
-            
+                \Log::error('Error trace: ' . $e->getTraceAsString());
             }
         }
     }
