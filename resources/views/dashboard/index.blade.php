@@ -1,14 +1,12 @@
 <x-layouts.app title="Dashboard">
 
-    @if (session()->has('message'))
+    @session('message')
     <div x-data="{ show: true }" 
          x-init="setTimeout(() => show = false, 3000)" 
-         x-show="show"
-         class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" 
-         role="alert">
-        {{ session('message') }}
+         x-show="show">
+        <flux:callout variant="success" icon="check-circle" heading="{{ session('message') }}" class="mb-5"/>
     </div>
-    @endif
+    @endsession
     <div class="mb-5">
         <flux:button href="{{ route('dashboard.create') }}">{{ __('Add Product') }}</flux:button>
     </div>

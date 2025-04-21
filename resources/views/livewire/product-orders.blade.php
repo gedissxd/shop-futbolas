@@ -16,6 +16,13 @@ new class extends Component {
         $order = Order::findOrFail($id);
         $order->status = 'completed';
         $order->save();
+        
+        // Update the local state to reflect the change
+        foreach ($this->orders as $key => $orderItem) {
+            if ($orderItem->id === $id) {
+                $this->orders[$key]->status = 'completed';
+            }
+        }
     }
 
 }; ?>
@@ -44,7 +51,7 @@ new class extends Component {
                 <div class="mb-2">{{ __('Pickup Location') }}: {{ $order->terminal ?? __('Not specified') }}</div>
             @endif
             <div class="mb-2">{{ __('Status') }}: <span class="text-green-500">{{ __($order->status) }}</span></div>
-            <flux:button wire:click="status({{ $order->id }})" :disabled="$order->status == 'completed'">{{ __('Send') }}</flux:button>
+            <flux:button wire:click="status({{ $order->id }})" wire:confirm="Are you sure you want to mark this order as completed?" :disabled="$order->status == 'completed'">{{ __('Send') }}</flux:button>
 
             <div class="mt-4 pt-4 border-t border-zinc-700">
                 <h3 class="font-medium mb-3">{{ __('Items') }}:</h3>
@@ -54,6 +61,7 @@ new class extends Component {
                         <div class="flex justify-between">
                             <div>
                                 <span class="font-medium">{{ $item['product_name'] }}</span>
+                                
                                 <div class="text-sm text-zinc-400">{{ __('Size') }}: {{ $item['size'] }}</div>
                                 <div class="text-sm text-zinc-400">{{ __('Quantity') }}: {{ $item['quantity'] }}</div>
                             </div>

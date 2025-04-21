@@ -8,7 +8,7 @@
         <flux:input name="description" type="text" required value="{{ old('description', $product->description) }}" label="{{ __('Description') }}" class="mb-4"/>
         <flux:input name="variant" type="text" required value="{{ old('variant', $product->variant) }}" label="{{ __('Variants') }}" class="mb-4"/>
         <flux:input name="stock" type="number" min="0" required value="{{ old('stock', $product->stock) }}" label="{{ __('Stock') }}" class="mb-4"/>
-        <flux:button type="submit" class="bg-green-800!">{{ __('Update') }}</flux:button>
+        <flux:button type="submit" variant="primary">{{ __('Update') }}</flux:button>
         <flux:button href="{{ route('dashboard') }}">{{ __('Cancel') }}</flux:button>
     </form>
 

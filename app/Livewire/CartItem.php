@@ -37,7 +37,7 @@ class CartItem extends Component
         $cart->quantity++;
         $cart->save();
 
-
+        $this->refreshCart();
         $this->dispatch('cartUpdated');
     }
 
@@ -52,6 +52,7 @@ class CartItem extends Component
         if ($cart->quantity > 1) {
             $cart->quantity--;
             $cart->save();
+            $this->refreshCart();
         }
         $this->dispatch('cartUpdated');
     }
