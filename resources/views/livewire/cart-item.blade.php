@@ -65,14 +65,14 @@
                                     @if($pickupMethod === 'terminal')
                                     <flux:select placeholder="{{ __('Choose terminal...') }}" class="w-full" name="terminal_id" class="mt-4">
                                         @foreach ($this->getTerminals() as $terminal)
-                                            <flux:select.option value="{{ $terminal->id }}">{{ $terminal->city }}: {{ $terminal->address }} {{ $terminal->name }}</flux:select.option>
+                                            <flux:select.option wire:key="terminal-{{ $terminal->id }}" value="{{ $terminal->id }}">{{ $terminal->city }}: {{ $terminal->address }} {{ $terminal->name }}</flux:select.option>
                                         @endforeach
                                     </flux:select>
                                     @endif
                                     @if($pickupMethod === 'omniva')
                                         <flux:select placeholder="{{ __('Choose terminal...') }}" class="w-full" name="terminal_id" class="mt-4">
                                             @foreach ($this->getPickupPoints() as $terminal)
-                                                <flux:select.option value="{{ $terminal['NAME'] }}">{{ $terminal['NAME'] }}: {{ $terminal['A5_NAME'] }}</flux:select.option>
+                                                <flux:select.option wire:key="terminal-{{ $terminal['NAME'] }}" value="{{ $terminal['NAME'] }}">{{ $terminal['NAME'] }}: {{ $terminal['A5_NAME'] }}</flux:select.option>
                                             @endforeach
                                         </flux:select>
                                         @endif

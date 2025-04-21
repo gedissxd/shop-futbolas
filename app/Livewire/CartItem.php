@@ -96,14 +96,12 @@ class CartItem extends Component
             return;
         }
 
-        $this->authorize('delete', $cart);
 
         $cart->delete();
         $this->refreshCart();
         $this->dispatch('cartUpdated');
     }
 
-    #[Renderless]
     public function setPickupMethod($method)
     {
         $this->pickupMethod = $method;
