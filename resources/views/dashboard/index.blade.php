@@ -17,7 +17,7 @@
             <div class="bg-blue-300 p-4 rounded-lg flex gap-4">
                 <div>
                     @if($product->images->isNotEmpty())
-                <img src="{{ asset($product->images->first()->image) }}" alt="{{ $product->name }}" class="w-full rounded-lg">
+                <img src="{{ $product->images->first()->getUrl() }}" alt="{{ $product->name }}" class="size-25 rounded-lg">
                 @endif
                 </div>
                 <div>

@@ -16,9 +16,8 @@
 
         <div class="bg-white  rounded-lg w-1/4">
            <div class="w-full h-48 overflow-hidden h-[360px]">
-               @empty(asset($product->images))
-               <img src="{{ asset($product->images->first()->image) }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
-               @endempty
+    
+               <img src="{{ $product->images->first()->getUrl() }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
            </div>
 
            <div class="p-4  flex flex-col">

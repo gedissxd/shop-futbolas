@@ -16,7 +16,13 @@
 
                     <div class="border-b border-zinc-700 pb-4 mb-4 last:border-0 last:mb-0 last:pb-0">
                         <div class="flex items-center gap-3">
-                            <img src="{{ $cart->product->images->first()->image }}" alt="{{ $cart->product->name }}" class="size-16 sm:size-20 md:size-24 object-cover rounded">
+                            @if($cart->product && $cart->product->images->count() > 0)
+                                <img src="{{ $cart->product->images->first()->getUrl() }}" alt="{{ $cart->product->name }}" class="size-16 sm:size-20 md:size-24 object-cover rounded">
+                            @else
+                                <div class="size-16 sm:size-20 md:size-24 bg-zinc-600 rounded flex items-center justify-center">
+                                    <flux:icon.photo class="w-8 h-8 text-zinc-400" />
+                                </div>
+                            @endif
                             <div class="flex-1">
                                 <h3 class="font-medium text-black dark:text-white">{{ $cart->product->name }}</h3>
                                 <div class="text-sm text-zinc-400">{{ __('Size') }}: {{ $cart->size }}</div>

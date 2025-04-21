@@ -2,7 +2,7 @@
     <div class="bg-white  w-full rounded-lg">
        <div class="w-full h-48 overflow-hidden h-[360px]">
         @if($product->images->first())
-           <img src="{{ asset($product->images->first()->image) }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
+           <img src="{{ $product->images->first()->getUrl() }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
         @endif
        </div>
        
