@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use App\Models\Terminal;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\LazyCollection;
 
 class TerminalsTableSeeder extends Seeder
 {
@@ -14,44 +13,37 @@ class TerminalsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $csvFilePath = base_path("public/csv/terminals.csv");
+        $csvFilePath = public_path('csv/terminals.csv');
         
         if (!file_exists($csvFilePath)) {
             $this->command->error("CSV file not found at: $csvFilePath");
             return;
         }
         
-        $csvFile = fopen($csvFilePath, "r");
+        $count = 0;
         
-        DB::statement('PRAGMA foreign_keys = OFF;');
-        
-        $rowCount = 0;
-        while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
-            $rowCount++;
+        LazyCollection::make(function () use ($csvFilePath) {
+            $handle = fopen($csvFilePath, 'r');
             
-            // Skip header row if needed
-            if ($rowCount === 1 && $data[0] === 'id') {
-                continue;
+            // Skip header row
+            fgetcsv($handle);
+            
+            while (($data = fgetcsv($handle, 2000, ",")) !== false) {
+                yield $data;
             }
             
-            // Print the first few rows to see the structure
-            if ($rowCount <= 3) {
-                $this->command->info("Row $rowCount: " . json_encode($data));
-            }
-            
-            DB::table('terminals')->insert([
-                'name' => trim($data[0], '"'),  // First column as name
-                'city' => trim($data[1], '"'),  // Second column as city 
-                'address' => isset($data[2]) ? trim($data[2], '"') : null, // Third column as address
-                'created_at' => now(),
-                'updated_at' => now(),
+            fclose($handle);
+        })
+        ->each(function ($data) use (&$count) {
+            Terminal::create([
+                'name' => trim($data[0], '"'),
+                'city' => trim($data[1], '"'),
+                'address' => isset($data[2]) ? trim($data[2], '"') : null,
             ]);
-        }
+            
+            $count++;
+        });
         
-        DB::statement('PRAGMA foreign_keys = ON;');
-        
-        fclose($csvFile);
-        
-        $this->command->info("Terminal data imported: $rowCount rows");
+        $this->command->info("Terminal data imported: $count rows");
     }
 }
