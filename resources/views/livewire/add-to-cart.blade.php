@@ -19,7 +19,7 @@
                 {{ $product->stock > 0 ? __('In stock: ') . $product->stock : __('Out of stock') }}
             </div>
             <p class="text-black dark:text-white">{{ $product->price }}€</p>
-            <p class="text-black dark:text-white mt-5">{{ $product->description }}</p>
+            <div class="text-black dark:text-white mt-5 prose prose-sm max-w-none dark:prose-invert">{!! $product->description !!}</div>
 
 
 
