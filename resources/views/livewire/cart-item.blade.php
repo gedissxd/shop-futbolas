@@ -14,7 +14,7 @@
                     @endif
                     @foreach ($carts as $cart)
 
-                    <div class="border-b border-zinc-700 pb-4 mb-4 last:border-0 last:mb-0 last:pb-0">
+                    <div class="border-b dark:border-zinc-700 border-zinc-200 pb-4 mb-4 last:border-0 last:mb-0 last:pb-0">
                         <div class="flex items-center gap-3">
                             @if($cart->product && $cart->product->images->count() > 0)
                                 <img src="{{ $cart->product->images->first()->getUrl() }}" alt="{{ $cart->product->name }}" class="size-16 sm:size-20 md:size-24 object-cover rounded">
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div class="flex items-center justify-between mt-3">
-                            <div class="flex items-center border border-zinc-600 rounded-lg">
+                            <div class="flex items-center border dark:border-zinc-600 border-zinc-300 rounded-lg">
                                 <button class="p-2 cursor-pointer {{ $cart->quantity == 1 ? 'hidden' : '' }}" wire:click="decrement({{ $cart->id }})">
                                     <flux:icon.minus class="w-5 h-5 text-black dark:text-white" />
                                 </button>
@@ -47,9 +47,9 @@
                     @endforeach
                 </div>
 
-                <div class="mt-4 border-t border-zinc-700 pt-4">
-                    <h3 class="text-right font-medium text-lg">{{ __('Total') }}: {{ $this->getCartTotal() }}€</h3>
-                    <div class="mt-6 border-t border-zinc-700 pt-6">
+                <div class="mt-4 border-t dark:border-zinc-700 border-zinc-200 pt-4">
+                    <h3 class="text-right font-medium text-lg dark:text-white text-gray-700">{{ __('Total') }}: {{ $this->getCartTotal() }}€</h3>
+                    <div class="mt-6 border-t dark:border-zinc-700 border-zinc-200 pt-6">
                         <form action="{{ route('checkout') }}" method="POST">
                             @csrf
                           
