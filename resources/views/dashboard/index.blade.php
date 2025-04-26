@@ -24,6 +24,9 @@
                 <p class="text-sm text-gray-600 font-bold {{ $product->stock === 0 ? 'text-red-600' : '' }}">
                     {{ __('Stock') }}: {{ $product->stock }} {{ $product->stock === 0 ? '(Out of stock)' : '' }}
                 </p>
+                <p class="text-sm text-gray-600 font-bold {{ $product->featured ? 'text-green-600' : 'text-red-600' }}">
+                    {{ __('Featured') }}: {{ $product->featured ? 'Yes' : 'No' }}
+                </p>
                 </div>
                 <div class="flex ml-auto gap-2">
                     <flux:button href="{{ route('dashboard.edit', $product->id) }}">{{ __('Edit') }}</flux:button>
