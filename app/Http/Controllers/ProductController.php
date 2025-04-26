@@ -20,10 +20,9 @@ class ProductController extends Controller
 
     public function showfour()
     {
-        $products = Product::take(4)->get();
+        $products = Product::where('featured', true)->take(4)->get();
         return view('home', compact('products'));
     }
 
-    
 
 }

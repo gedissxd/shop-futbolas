@@ -58,10 +58,10 @@ public function store(Request $request)
         return view('dashboard.edit', compact('product'));
     }
 
-    public function update($id, Request $request) 
+    public function update($id, Request $request)
     {
         $product = Product::findOrFail($id);
-        
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
@@ -69,9 +69,11 @@ public function store(Request $request)
             'variant' => 'required|string',
             'stock' => 'required|integer|min:0',
         ]);
-        
+
+        $validated['featured'] = $request->boolean('featured');
+
         $product->update($validated);
-        
+
         return view('dashboard.edit', compact('product'));
     }
 
