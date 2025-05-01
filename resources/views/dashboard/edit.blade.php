@@ -12,6 +12,7 @@
         </div>
         <flux:input name="variant" type="text" required value="{{ old('variant', $product->variant) }}" label="{{ __('Variants') }}" class="mb-4"/>
         <flux:input name="stock" type="number" min="0" required value="{{ old('stock', $product->stock) }}" label="{{ __('Stock') }}" class="mb-4"/>
+        <flux:input name="tags" type="text" required value="{{ old('tags', $product->tags->pluck('name')->join(', ')) }}" label="{{ __('Tags') }}" class="mb-4"/>
         <div class="mb-4">
             <flux:checkbox name="featured" value="1" :checked="$product->featured" label="{{ __('Featured Product') }}" />
         </div>
@@ -20,21 +21,8 @@
     </form>
 
     <h1>{{ __('Preview') }}</h1>
-
-        <div class="bg-white  rounded-lg w-1/4">
-           <div class="w-full h-48 overflow-hidden h-[360px]">
-    
-               <img src="{{ $product->images->first()->getUrl() }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
-           </div>
-
-           <div class="p-4  flex flex-col">
-               <h2 class="text-lg font-medium text-gray-800 mb-1">{{ $product->name }}</h2>
-
-               <div class="mt-auto">
-                   <p class="text-lg font-bold text-gray-900">${{ $product->price }}</p>
-               </div>
-           </div>
-       </div>
-
+    <div class="flex">
+       <x-product-card :product="$product" />
+    </div>
     <livewire:add-to-cart :product="$product" />
 </x-layouts.app>

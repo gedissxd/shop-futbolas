@@ -48,7 +48,21 @@
             <div class="mt-5">
                 <flux:button variant="primary" wire:click="addToCart" :disabled="$product->stock <= 0" >{{ __('Add to cart') }}</flux:button>
             </div>
+
+            
           </div>
         </div>
+    </div>
+    @if($this->getSimilarProducts())
+    <h1 class="text-2xl font-bold text-black dark:text-white flex justify-center">{{ __('Similar products') }}</h1>
+   
+    <div class="mt-5 flex gap-4  mx-auto mb-10 ml-10 justify-center">
+  
+        @foreach($this->getSimilarProducts() as $similarProduct)
+        <div class="flex">
+            <x-product-card :product="$similarProduct" />
+        </div>
+        @endforeach
+        @endif
     </div>
 </div>

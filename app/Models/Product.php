@@ -14,4 +14,9 @@ class Product extends Model
     {
         return $this->hasMany(Image::class);
     }
+
+    public function tags()
+    {
+        return $this->hasMany(Tag::class);
+    }
 }

@@ -25,32 +25,6 @@ class Image extends Model
         if (!$this->image) {
             return '';
         }
-
-        // For Laravel Cloud - this works with both public and private buckets
         return Storage::disk('s3')->url($this->image);
-    }
-
-    /**
-     * Create a temporary URL for private buckets.
-     *
-     * @param int $expiration Time in minutes until URL expires
-     * @return string
-     */
-    public function getTemporaryUrl($expiration = 5)
-    {
-        if (!$this->image) {
-            return '';
-        }
-
-        try {
-            // For private buckets in Laravel Cloud
-            return Storage::disk('s3')->temporaryUrl(
-                $this->image,
-                now()->addMinutes($expiration)
-            );
-        } catch (\Exception $e) {
-            // Fallback to regular URL if bucket doesn't support signed URLs
-            return $this->getUrl();
-        }
     }
 }

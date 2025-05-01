@@ -6,6 +6,13 @@
         @endif
        </div>
        
+       <div class="flex flex-wrap gap-2 mt-2 ml-2">
+       @foreach($product->tags as $tag)
+       <flux:badge variant="pill" color="orange" class="text-gray-500!">{{ $tag->name }}</flux:badge>
+       @endforeach
+       </div>
+   
+       
        <div class="p-4  flex flex-col">
            <h2 class="text-lg font-medium text-gray-800 mb-1">{{ $product->name }}</h2>
            

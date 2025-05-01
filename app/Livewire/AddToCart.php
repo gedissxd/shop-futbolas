@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -89,6 +90,19 @@ class AddToCart extends Component
         }
         
         return Storage::disk('s3')->url($this->currentImage);
+    }
+
+    public function getSimilarProducts()
+    {
+       
+        $currentProductTags = $this->product->tags->pluck('name');
+        $tags = Tag::whereIn('name', $currentProductTags)->get();
+        $products = Product::whereHas('tags', function ($query) use ($tags) {
+            $query->whereIn('id', $tags->pluck('id'));
+        })
+        ->where('id', '!=', $this->product->id)
+        ->limit(4)->get();
+        return $products;
     }
 
     public function render()

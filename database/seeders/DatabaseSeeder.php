@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Product;
+use App\Models\Tag;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -15,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(1)->create();
         Product::factory(40)->create();
+        Tag::factory(100)->create();
         $this->call([
             // Other seeders...
             TerminalsTableSeeder::class,

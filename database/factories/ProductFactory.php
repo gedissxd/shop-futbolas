@@ -22,6 +22,7 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(2, 1, 100),
             'variant' => "XL/RED,M/BLUE",
             'stock' => $this->faker->numberBetween(1, 100),
+            'featured' => $this->faker->boolean,
         ];
     }
 }
