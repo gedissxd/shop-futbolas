@@ -72,7 +72,7 @@
             </div>
         </div>
     @else
-        <div class="text-center py-8 bg-gray-100 rounded-lg border border-zinc-200 dark:border-yellow-200 dark:bg-zinc-900">
+        <div class="text-center py-8 bg-gray-100 rounded-lg border border-zinc-200 dark:border-yellow-200 dark:bg-zinc-800">
             <p class="text-black dark:text-white mb-4">{{ __('Your cart is empty') }}</p>
             <a href="{{ route('products') }}" class="text-yellow-500 hover:underline">{{ __('Continue Shopping') }}</a>
         </div>
