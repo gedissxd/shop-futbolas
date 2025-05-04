@@ -18,7 +18,7 @@ class ProductController extends Controller
         return view('products.show', compact('product'));
     }
 
-    public function showfour()
+    public function showFeatured()
     {
         $products = Product::where('featured', true)->take(4)->get();
         return view('home', compact('products'));

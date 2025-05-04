@@ -1,8 +1,11 @@
 <a href="{{ route('products.show', $product->id) }}" wire:navigate.hover>
-    <div class="bg-white  w-full rounded-lg">
-       <div class="w-full h-48 overflow-hidden h-[360px]">
+    <div class="bg-white w-[430px] rounded-lg">
+       <div class="w-full h-[360px] overflow-hidden">
+        
         @if($product->images->first())
            <img src="{{ $product->images->first()->getUrl() }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
+        @else
+           <img src="https://placehold.co/600x400" alt="No Image Available" class="w-full h-full object-cover rounded-t-lg">
         @endif
        </div>
        
@@ -13,7 +16,7 @@
        </div>
    
        
-       <div class="p-4  flex flex-col">
+       <div class="p-4 flex flex-col">
            <h2 class="text-lg font-medium text-gray-800 mb-1">{{ $product->name }}</h2>
            
            <div class="mt-auto">

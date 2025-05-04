@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('sent')->default(false);
             $table->string('payment');
             $table->string('status');
+            $table->string('payment_intent_id');
             $table->timestamps();
         });
     }

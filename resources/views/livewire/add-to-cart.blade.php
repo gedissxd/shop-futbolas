@@ -2,7 +2,11 @@
     <div class="flex p-8 gap-8 max-w-7xl mx-auto">
 
         <div class="w-1/2">
+            @if($product->images->first())
             <img src="{{ $this->getCurrentImageUrl() }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-md mb-4">
+            @else
+            <img src="https://placehold.co/600x400" alt="No Image Available" class="w-full rounded-lg shadow-md mb-4">
+            @endif
             @if($product->images->count() > 1)
                 <div class="flex gap-2">
                     @foreach($product->images as $image)
@@ -53,7 +57,7 @@
           </div>
         </div>
     </div>
-    @if($this->getSimilarProducts())
+    @if($this->getSimilarProducts()->count() > 0)
     <h1 class="text-2xl font-bold text-black dark:text-white flex justify-center">{{ __('Similar products') }}</h1>
    
     <div class="mt-5 flex gap-4  mx-auto mb-10 ml-10 justify-center">

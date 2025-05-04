@@ -4,11 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', [ProductController::class, 'showfour'])->name('home');
+Route::get('/', [ProductController::class, 'showFeatured'])->name('home');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
@@ -32,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 
     Route::middleware('can:admin-access')->group(function () {
-        Route::get('/orders', [OrderController::class, 'index'])->name('dashboard.orders');
+        Volt::route('/orders', 'product-orders')->name('dashboard.orders');
         Route::get('/dashboard/users', [UserController::class, 'index'])->name('dashboard.users');
         Route::delete('/dashboard/users/delete/{id}', [UserController::class, 'destroy'])->name('dashboard.users.destroy');
         Route::get('/dashboard/users/edit/{id}', [UserController::class, 'edit'])->name('dashboard.users.edit');

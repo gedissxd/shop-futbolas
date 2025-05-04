@@ -2,13 +2,19 @@
 
 use Livewire\Volt\Component;
 use App\Models\Order;
+use Livewire\WithPagination;
+use Livewire\Attributes\{Title};
 
-new class extends Component {
-    public $orders = [];
 
-    public function mount($orders)
+
+new 
+#[Title('Orders')] 
+class extends Component {
+    use WithPagination;
+
+    public function getOrdersProperty()
     {
-        $this->orders = $orders;
+        return Order::orderBy('created_at', 'desc')->paginate(1);
     }
 
     public function status($id)
@@ -16,13 +22,6 @@ new class extends Component {
         $order = Order::findOrFail($id);
         $order->status = 'completed';
         $order->save();
-        
-        // Update the local state to reflect the change
-        foreach ($this->orders as $key => $orderItem) {
-            if ($orderItem->id === $id) {
-                $this->orders[$key]->status = 'completed';
-            }
-        }
     }
 
 }; ?>
@@ -30,7 +29,7 @@ new class extends Component {
 <div>
     <div class="text-xl font-bold mb-4"> {{ __('Completed orders') }} </div>
 
-    @foreach ($orders as $order)
+    @foreach ($this->orders as $order)
         <div class="mb-8 pb-4 border p-4 rounded-lg border-yellow-300">
             <h2 class="text-xl font-bold mb-4">{{ __('Order') }}: #{{ $order->id }} - {{ $order->created_at->format('Y-m-d H:i') }}</h2>
             <div class="mb-2">{{ __('Customer') }}: {{ $order->name }} ({{ $order->email }})</div>
@@ -51,7 +50,7 @@ new class extends Component {
                 <div class="mb-2">{{ __('Pickup Location') }}: {{ $order->terminal ?? __('Not specified') }}</div>
             @endif
             <div class="mb-2">{{ __('Status') }}: <span class="text-green-500">{{ __($order->status) }}</span></div>
-            <flux:button wire:click="status({{ $order->id }})" wire:confirm="Are you sure you want to mark this order as completed?" :disabled="$order->status == 'completed'">{{ __('Send') }}</flux:button>
+            <flux:button wire:click="status({{ $order->id }})" wire:confirm="Are you sure you want to mark this order as completed?" :disabled="$order->status == 'completed'">@if($order->status == 'completed') {{ __('completed') }} @else {{ __('Send') }} @endif</flux:button>
 
             <div class="mt-4 pt-4 border-t border-zinc-700">
                 <h3 class="font-medium mb-3">{{ __('Items') }}:</h3>
@@ -71,4 +70,8 @@ new class extends Component {
             </div>
         </div>
     @endforeach
+
+    <div class="mt-4">
+        {{ $this->orders->links() }}
     </div>
+</div>
