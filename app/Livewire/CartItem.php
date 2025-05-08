@@ -5,14 +5,31 @@ namespace App\Livewire;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
+use Livewire\Attributes\On;
 
 class CartItem extends Component
 {
     public $carts = [];
+    public $pickupFee = 0;
+
+    protected $listeners = ['pickupMethodChanged' => 'updatePickupFee'];
 
     public function mount()
     {
         $this->refreshCart();
+        if (session()->has('pickupMethod')) {
+            $this->updatePickupFee(session('pickupMethod'));
+        }
+    }
+
+    #[On('pickupMethodChanged')]
+    public function updatePickupFee($method)
+    {
+        if ($method === 'terminal' || $method === 'omniva') {
+            $this->pickupFee = 3;
+        } else {
+            $this->pickupFee = 0;
+        }
     }
 
     private function refreshCart()
@@ -59,9 +76,10 @@ class CartItem extends Component
 
     public function getCartTotal()
     {
-        return $this->carts->sum(function($cart) {
+        $subtotal = $this->carts->sum(function($cart) {
             return $cart->product->price * $cart->quantity;
         });
+        return $subtotal + $this->pickupFee;
     }
    
 

@@ -32,5 +32,6 @@ class CartTerminals extends Component
     {
         $this->pickupMethod = $method;
         session(['pickupMethod' => $method]);
+        $this->dispatch('pickupMethodChanged', $method);
     }
 }
