@@ -60,10 +60,10 @@
     @if($this->getSimilarProducts()->count() > 0)
     <h1 class="mt-80 text-2xl font-bold text-black dark:text-white flex justify-center">{{ __('Similar products') }}</h1>
    
-    <div class="mt-5 flex gap-4  mx-auto mb-10 p-8 justify-center">
+    <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-auto mb-10 p-8 justify-items-center max-w-7xl">
   
         @foreach($this->getSimilarProducts() as $similarProduct)
-        <div class="w-1/4">
+        <div class="w-full">
             <x-product-card :product="$similarProduct" />
         </div>
         @endforeach

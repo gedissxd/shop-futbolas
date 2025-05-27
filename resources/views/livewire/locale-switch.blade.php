@@ -15,7 +15,7 @@ public function mount()
 public function submit()
 {
     session()->put('locale', $this->language);
-    return redirect()->route('home');
+    $this->redirect(url()->previous());
 }
 
 };?>

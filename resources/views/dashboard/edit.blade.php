@@ -21,7 +21,7 @@
     </form>
 
     <h1>{{ __('Preview') }}</h1>
-    <div class="flex">
+    <div class="flex w-1/8">
        <x-product-card :product="$product" />
     </div>
     <livewire:add-to-cart :product="$product" />

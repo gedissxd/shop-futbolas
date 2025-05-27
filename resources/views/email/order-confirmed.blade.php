@@ -6,9 +6,9 @@ Thank you for your order! We're pleased to confirm that your order has been rece
 @component('mail::panel')
 ## Order Summary
 @foreach($order->items as $item)
-Product: {{ $item->product_name }}
-Quantity: {{ $item->quantity }}
-Size: {{ $item->size }}
+{{ $item->product_name }}<br>
+Quantity: {{ $item->quantity }}<br>
+Size: {{ $item->size }}<br>
 
 @endforeach
 

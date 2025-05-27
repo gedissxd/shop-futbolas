@@ -1,15 +1,15 @@
-<a href="{{ route('products.show', $product->id) }}" wire:navigate.hover class="block w-full">
+<a href="{{ route('products.show', $product->id) }}" wire:navigate.hover class="block w-full h-full">
     <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 h-full flex flex-col">
        <div class="w-full aspect-[4/3] overflow-hidden">
         
         @if($product->images->first())
-           <img src="{{ $product->images->first()->getUrl() }}" alt="Product Image" class="w-full h-full object-cover rounded-t-lg">
+           <img src="{{ $product->images->first()->getUrl() }}" alt="{{ $product->name }}" class="w-full h-full object-cover rounded-t-lg">
         @else
            <img src="https://placehold.co/600x400" alt="No Image Available" class="w-full h-full object-cover rounded-t-lg">
         @endif
        </div>
        
-       <div class="flex flex-wrap gap-2 mt-2 ml-2">
+       <div class="flex flex-wrap gap-2 mt-2 px-4">
        @foreach($product->tags as $tag)
        <flux:badge variant="pill" color="orange" class="text-gray-500!">{{ $tag->name }}</flux:badge>
        @endforeach
@@ -17,9 +17,9 @@
    
        
        <div class="p-4 flex flex-col flex-grow">
-           <h2 class="text-lg font-medium text-gray-800 mb-1">{{ $product->name }}</h2>
+           <h2 class="text-lg font-medium text-gray-800 mb-1 line-clamp-2">{{ $product->name }}</h2>
            
-           <div class="mt-auto">
+           <div class="mt-auto pt-2">
                <p class="text-lg font-bold text-gray-900">{{ $product->price }}€</p>
            </div>
        </div>

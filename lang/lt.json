@@ -1,4 +1,10 @@
 {
+    "Delete product?": "Ištrinti prekę?",
+    "This action cannot be reversed.": "Šis veiksmas negali būti atstatytas.",
+    "You're about to delete": "Jūs ištrinsite",
+    "Delete user": "Ištrinti vartotoją",
+    "Delete user?": "Ištrinti vartotoją?",
+    "Similar products": "Panašios prekės",
     "Cannot add more of :product, only :stock available": "Negalima pridėti daugiau :product, tik :stock yra sandėlyje",
     "Item added to cart": "Prekė pridėta į krepšelį",
     "Please select a size before adding to cart": "Prašome pasirinkti dydį prieš pridėdami į krepšelį",
