@@ -63,6 +63,17 @@ class CheckoutController extends Controller
                 ];
             }
             
+            if (in_array($request->pickupMethod, ['terminal', 'omniva'])) {
+                $lineItems[] = [
+                    'price_data' => [
+                        'currency' => 'eur',
+                        'product_data' => [
+                            'name' => 'Pickup Fee',
+                        ],
+                        'unit_amount' => 300, 
+                    ],
+                ];
+            }
             
             $checkout = $user->allowPromotionCodes()->checkout($lineItems, 
             [
