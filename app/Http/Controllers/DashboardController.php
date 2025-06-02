@@ -29,7 +29,7 @@ public function store(Request $request)
         'description' => 'required|string',
         'variant' => 'required|string',
         'stock' => 'required|integer|min:0',
-        
+        'tags' => 'nullable|string',
     ]);
 
     $request->validate([
