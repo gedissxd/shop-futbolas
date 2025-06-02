@@ -39,7 +39,6 @@ public function store(Request $request)
 
     $product = Product::create($validated);
 
-
     $tags = explode(',', $request->input('tags'));
     foreach ($tags as $tag) {
         Tag::create([
@@ -48,18 +47,15 @@ public function store(Request $request)
         ]);
     }
 
-    if ($request->hasFile('image')) {
-        foreach ($request->file('image') as $imageFile) {
-           
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $imageFile) {
                 $path = $imageFile->store('images', 's3');
-                Storage::disk('s3')->put($path, file_get_contents($imageFile));
                 Image::create([
                     'product_id' => $product->id,
                     'image' => $path,
                 ]);
         }
     }
-    
     return redirect()->route('dashboard')->with('message', 'Product created successfully');
 }
 
