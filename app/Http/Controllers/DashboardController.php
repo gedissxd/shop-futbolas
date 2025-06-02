@@ -30,6 +30,7 @@ public function store(Request $request)
         'variant' => 'required|string',
         'stock' => 'required|integer|min:0',
         'tags' => 'nullable|string',
+        'featured' => 'nullable|boolean',
     ]);
 
     $request->validate([
