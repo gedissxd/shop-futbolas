@@ -150,7 +150,7 @@ class CheckoutController extends Controller
         }
         
         Cart::where('user_id', $user->id)->delete();
-        Mail::to($user->email)->queue(new OrderConfirmed($order));
+        Mail::to($user->email)->send(new OrderConfirmed($order));
 
         return view('checkout.success', compact('order'));
     }
