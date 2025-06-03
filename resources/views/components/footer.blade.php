@@ -2,7 +2,7 @@
     <div class="container mx-auto px-6 py-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             <!-- Logo Section -->
-            <div class="lg:col-span-1">
+            <div class="lg:col-span-1 flex justify-center lg:justify-start">
                <img src="{{ asset('svg/logo no background fill.svg') }}" alt="logo" class="size-50">
             </div>
 

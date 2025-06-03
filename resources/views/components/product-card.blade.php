@@ -1,5 +1,5 @@
-<a href="{{ route('products.show', $product->id) }}" wire:navigate.hover class="block w-full h-full">
-    <div class="rounded-lg hover:shadow-lg transition-shadow duration-300 h-full flex flex-col overflow-hidden">
+<a href="{{ route('products.show', $product->id) }}" wire:navigate.hover class="block w-full h-full text-black dark:text-white hover:scale-102 transition-all duration-300">
+    <div class="rounded-lg h-full flex flex-col overflow-hidden">
         <!-- Product Image -->
         <div class="w-full aspect-square overflow-hidden">
             @if($product->images->first())
