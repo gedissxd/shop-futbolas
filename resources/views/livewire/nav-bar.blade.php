@@ -86,7 +86,7 @@
             <flux:navlist.group :heading="__('Navigation')">
                 <flux:navlist.item icon="home" :href="route('home')" wire:navigate>{{ __('Home') }}</flux:navlist.item>
                 <flux:navlist.item icon="shopping-cart" :href="route('products')" wire:navigate>{{ __('Shop') }}</flux:navlist.item>
-                <flux:navlist.item icon="shopping-bag" :href="route('cart')" wire:navigate>{{ __('Cart') }} ({{ $this->cartCount }})</flux:navlist.item>
+                <flux:navlist.item icon="shopping-bag" :href="route('cart')" >{{ __('Cart') }} ({{ $this->cartCount }})</flux:navlist.item>
             </flux:navlist.group>
         </flux:navlist>
 

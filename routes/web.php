@@ -10,7 +10,7 @@ use App\Http\Controllers\UserController;
 Route::get('/', [ProductController::class, 'showFeatured'])->name('home');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products');
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{name}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('/cart', function () {
     return view('cart.index');
