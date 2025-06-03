@@ -67,7 +67,7 @@
             </flux:menu>
         </flux:dropdown>
         @else
-        <flux:navbar class="space-x-2">
+        <flux:navbar class="space-x-2 max-lg:hidden">
             <flux:navbar.item href="{{ route('login') }}" wire:navigate>{{ __('Login') }}</flux:navbar.item>
             <flux:navbar.item href="{{ route('register') }}" wire:navigate>{{ __('Register') }}</flux:navbar.item>
         </flux:navbar>
@@ -89,5 +89,32 @@
                 <flux:navlist.item icon="shopping-bag" :href="route('cart')" wire:navigate>{{ __('Cart') }} ({{ $this->cartCount }})</flux:navlist.item>
             </flux:navlist.group>
         </flux:navlist>
+
+        @guest
+        <flux:navlist variant="outline">
+            <flux:navlist.group :heading="__('Account')">
+                <flux:navlist.item icon="user" :href="route('login')" wire:navigate>{{ __('Login') }}</flux:navlist.item>
+                <flux:navlist.item icon="user-plus" :href="route('register')" wire:navigate>{{ __('Register') }}</flux:navlist.item>
+            </flux:navlist.group>
+        </flux:navlist>
+        @endguest
+
+        @auth
+        <flux:spacer />
+        
+        <flux:navlist variant="outline">
+            <flux:navlist.group :heading="__('Account')">
+                @if (Auth::user()->is_admin ?? false)
+                <flux:navlist.item icon="layout-grid" :href="route('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                @endif
+                <flux:navlist.item icon="cog" href="/settings/profile" wire:navigate>{{ __('Settings') }}</flux:navlist.item>
+                <flux:navlist.item icon="arrow-right-start-on-rectangle" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Log Out') }}</flux:navlist.item>
+            </flux:navlist.group>
+        </flux:navlist>
+
+        <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+            @csrf
+        </form>
+        @endauth
     </flux:sidebar>
 </div>
