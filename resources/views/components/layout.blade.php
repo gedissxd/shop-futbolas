@@ -3,7 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ $title ?? 'Laravel' }}</title>
+        
+        {!! SEO::generate() !!}
+        
         <link rel="icon" href="{{ asset('svg/logo no background fill.svg') }}" class="size-32">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
