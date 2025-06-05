@@ -40,7 +40,7 @@
 
             @enderror
           <div class="flex flex-col gap-4">
-            <flux:select wire:model="size" class="mt-5">
+            <flux:select wire:model="size" class="mt-5" placeholder="{{ __('Select size') }}">
                 @foreach (explode(',', $product->variant) as $variant)
                     <flux:select.option class="text-black dark:text-white dark:bg-zinc-800" label="{{ $variant }}" value="{{ $variant }}" />
                 @endforeach

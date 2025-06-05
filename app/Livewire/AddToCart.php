@@ -97,7 +97,7 @@ class AddToCart extends Component
        
         $currentProductTags = $this->product->tags->pluck('name');
         $tags = Tag::whereIn('name', $currentProductTags)->get();
-        $products = Product::whereHas('tags', function ($query) use ($tags) {
+        $products = Product::with('images')->whereHas('tags', function ($query) use ($tags) {
             $query->whereIn('id', $tags->pluck('id'));
         })
         ->where('id', '!=', $this->product->id)

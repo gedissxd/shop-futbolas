@@ -1,4 +1,4 @@
-<a href="{{ route('products.show', $product->name) }}" wire:navigate.hover class="block w-full h-full text-black dark:text-white hover:scale-102 transition-all duration-300">
+<a href="{{ route('products.show', $product->name) }}" wire:navigate.hover class="block w-full h-full hover:scale-102 transition-all duration-300">
     <div class="rounded-lg h-full flex flex-col overflow-hidden">
         <!-- Product Image -->
         <div class="w-full aspect-square overflow-hidden">

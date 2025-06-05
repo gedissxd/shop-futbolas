@@ -12,7 +12,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('images')->get();
         return view('dashboard.index', compact('products'));
     }
 
@@ -62,7 +62,7 @@ public function store(Request $request)
 
     public function edit($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with(['images', 'tags'])->findOrFail($id);
         $tags = Tag::where('product_id', $id)->get();
         return view('dashboard.edit', compact('product', 'tags'));
     }

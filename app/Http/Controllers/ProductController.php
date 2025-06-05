@@ -14,13 +14,13 @@ class ProductController extends Controller
 
     public function show($name)
     {
-        $product = Product::where('name', $name)->firstOrFail();
+        $product = Product::with(['images', 'tags'])->where('name', $name)->firstOrFail();
         return view('products.show', compact('product'));
     }
 
     public function showFeatured()
     {
-        $products = Product::where('featured', true)->take(4)->get();
+        $products = Product::with('images')->where('featured', true)->take(4)->get();
         return view('home', compact('products'));
     }
 

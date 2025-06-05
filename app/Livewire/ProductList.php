@@ -27,11 +27,11 @@ class ProductList extends Component
     private function loadProducts()
     {
         if ($this->sortBy === 'latest') {
-            $this->products = Product::latest()->get();
+            $this->products = Product::with('images')->latest()->get();
         } elseif ($this->sortBy === 'oldest') {
-            $this->products = Product::oldest()->get();
+            $this->products = Product::with('images')->oldest()->get();
         } else {
-            $this->products = Product::all();
+            $this->products = Product::with('images')->get();
         }
     }
 
