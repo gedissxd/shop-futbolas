@@ -16,7 +16,17 @@ Route::get('/cart', function () {
     return view('cart.index');
 })->name('cart');
 
+Route::get('/about-us', function () {
+    return view('about-us');
+})->name('about-us');
 
+Route::get('/privacy-policy', function () {
+    return view('privacy-policy');
+})->name('privacy-policy');
+
+Route::get('/contact-us', function () {
+    return view('contact-us');
+})->name('contact-us');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -31,7 +41,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 
     Route::middleware('can:admin-access')->group(function () {
-        Volt::route('/orders', 'product-orders')->name('dashboard.orders');
         Route::get('/dashboard/users', [UserController::class, 'index'])->name('dashboard.users');
         Route::delete('/dashboard/users/delete/{id}', [UserController::class, 'destroy'])->name('dashboard.users.destroy');
         Route::get('/dashboard/users/edit/{id}', [UserController::class, 'edit'])->name('dashboard.users.edit');
