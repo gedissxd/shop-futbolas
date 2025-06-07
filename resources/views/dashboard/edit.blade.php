@@ -10,7 +10,7 @@
             <label for="description" class="block mb-2 text-sm font-medium">{{ __('Description') }}</label>
             <textarea id="description" name="description" class="tinymce-editor">{{ old('description', $product->description) }}</textarea>
         </div>
-        <flux:input name="variant" type="text" required value="{{ old('variant', $product->variant) }}" label="{{ __('Variants') }}" class="mb-4"/>
+        <livewire:variant-input :existingVariants="$product->variant" />
         <flux:input name="stock" type="number" min="0" required value="{{ old('stock', $product->stock) }}" label="{{ __('Stock') }}" class="mb-4"/>
         <flux:input name="tags" type="text" required value="{{ old('tags', $product->tags->pluck('name')->join(', ')) }}" label="{{ __('Tags') }}" class="mb-4"/>
         <div class="mb-4">
