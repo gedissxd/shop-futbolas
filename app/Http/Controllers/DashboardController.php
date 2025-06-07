@@ -109,4 +109,9 @@ public function store(Request $request)
         $product->delete();
         return redirect()->route('dashboard')->with('message', 'Product deleted successfully');
     }
+
+    public function orders()
+    {
+        return view('dashboard.orders');
+    }
 }

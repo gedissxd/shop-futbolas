@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard/edit/{id}', [DashboardController::class, 'edit'])->name('dashboard.edit');
         Route::patch('/dashboard/update/{id}', [DashboardController::class, 'update'])->name('dashboard.update');
         Route::delete('/dashboard/update/{id}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
+        Route::get('/dashboard/orders', [DashboardController::class, 'orders'])->name('dashboard.orders');
     });
 });
 require __DIR__.'/auth.php';
