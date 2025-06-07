@@ -8,7 +8,7 @@
             <label for="description" class="block mb-2 text-sm font-medium">{{ __('Description') }}</label>
             <textarea id="description" name="description" class="tinymce-editor">{{ old('description') }}</textarea>
         </div>
-        <flux:input name="variant" type="text" required label="{{ __('Variants') }}" class="mb-4"/>
+        <livewire:variant-input />
         <flux:input name="image[]" type="file" required label="{{ __('Images') }}" class="mb-4" multiple/>
         <flux:input name="stock" type="number" min="0" required label="{{ __('Stock') }}" class="mb-4"/>
         <flux:input name="tags" type="text" required label="{{ __('Tags') }}" class="mb-4"/>
