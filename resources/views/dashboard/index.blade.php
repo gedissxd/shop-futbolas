@@ -21,9 +21,19 @@
                 <div>
                 <h2 class="text-lg font-bold">{{ $product->name }}</h2>
                 <p class="text-lg font-bold">${{ $product->price }}</p>
-                <p class="text-sm text-gray-600 font-bold {{ $product->stock === 0 ? 'text-red-600' : '' }}">
-                    {{ __('Stock') }}: {{ $product->stock }} {{ $product->stock === 0 ? '(Out of stock)' : '' }}
+                @php
+                    $totalStock = $product->variants->sum('stock');
+                @endphp
+                <p class="text-sm text-gray-600 font-bold {{ $totalStock === 0 ? 'text-red-600' : '' }}">
+                    {{ __('Total Stock') }}: {{ $totalStock }} {{ $totalStock === 0 ? '(Out of stock)' : '' }}
                 </p>
+                @if($product->variants->count() > 0)
+                    <p class="text-xs text-gray-500">
+                        {{ __('Variants') }}: {{ $product->variants->pluck('name')->join(', ') }}
+                    </p>
+                @else
+                    <p class="text-xs text-gray-500">{{ __('No variants') }}</p>
+                @endif
                 <p class="text-sm text-gray-600 font-bold {{ $product->featured ? 'text-green-600' : 'text-red-600' }}">
                     {{ __('Featured') }}: {{ $product->featured ? 'Yes' : 'No' }}
                 </p>
