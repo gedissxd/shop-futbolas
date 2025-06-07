@@ -12,7 +12,7 @@
         </div>
         <livewire:variant-input :existingVariants="$product->variant" />
         <flux:input name="stock" type="number" min="0" required value="{{ old('stock', $product->stock) }}" label="{{ __('Stock') }}" class="mb-4"/>
-        <flux:input name="tags" type="text" required value="{{ old('tags', $product->tags->pluck('name')->join(', ')) }}" label="{{ __('Tags') }}" class="mb-4"/>
+        <livewire:tag-input inputName="tags" :existingTags="$product->tags->pluck('name')->join(', ')" />
         <div class="mb-4">
             <flux:checkbox name="featured" value="1" :checked="$product->featured" label="{{ __('Featured Product') }}" />
         </div>
